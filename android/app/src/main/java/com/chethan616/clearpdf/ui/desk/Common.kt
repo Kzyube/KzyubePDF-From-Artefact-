@@ -170,7 +170,7 @@ val DockClearance = 40.dp
  * caps [eyebrow], the [title] large and white on the sky, and [trailing] controls.
  */
 @Composable
-fun ScreenHeader(eyebrow: String?, title: String, modifier: Modifier = Modifier, onBack: (() -> Unit)? = null, titleStyle: TextStyle = ClearType.Display, trailing: @Composable () -> Unit = {}) {
+fun ScreenHeader(eyebrow: String?, title: String, modifier: Modifier = Modifier, onBack: (() -> Unit)? = null, titleStyle: TextStyle = ClearType.Display, onWallpaper: Boolean = true, trailing: @Composable () -> Unit = {}) {
     val c = clear
     Column(modifier.fillMaxWidth().padding(start = 16.dp, end = 16.dp)) {
         if (onBack != null) {
@@ -183,10 +183,10 @@ fun ScreenHeader(eyebrow: String?, title: String, modifier: Modifier = Modifier,
         Row(Modifier.fillMaxWidth().padding(start = 6.dp), verticalAlignment = Alignment.Bottom) {
             Column(Modifier.weight(1f)) {
                 if (eyebrow != null) {
-                    Text(eyebrow.uppercase(), style = ClearType.Eyebrow, color = c.hero.copy(alpha = 0.85f))
+                    Text(eyebrow.uppercase(), style = ClearType.Eyebrow, color = if (onWallpaper) c.hero.copy(alpha = 0.85f) else c.ink)
                     Spacer(Modifier.height(6.dp))
                 }
-                Text(title, style = titleStyle.copy(color = c.hero).glowing(c))
+                Text(title, style = if (onWallpaper) titleStyle.copy(color = c.hero).glowing(c) else titleStyle.copy(color = c.ink))
             }
             if (onBack == null) Row(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) { trailing() }
         }
@@ -237,7 +237,7 @@ fun FileListItem(vm: AppViewModel, r: FileRow, recent: Boolean, modifier: Modifi
             Spacer(Modifier.height(2.dp))
             Text(
                 listOfNotNull(whenLabel(r.date), r.size.takeIf { it > 0 }?.let { formatSize(it) }).joinToString("  ·  "),
-                style = ClearType.Caption, color = c.inkSoft, maxLines = 1,
+                style = ClearType.Caption, color = if (vm.cleanAppearance && ticked) c.ink else c.inkSoft, maxLines = 1,
             )
         }
         if (selecting) {

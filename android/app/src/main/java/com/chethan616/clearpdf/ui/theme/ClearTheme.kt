@@ -1,9 +1,12 @@
 package com.chethan616.clearpdf.ui.theme
 
+import android.content.Context
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.remember
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
@@ -75,9 +78,13 @@ data class ClearColors(
     /** The dark glass of the floating create capsule. */
     val capsule: Color,
     val tones: Map<Tone, CardTone>,
+    val clean: Boolean = false,
 ) {
     /** The canvas colour (the wallpaper's middle), for places that need one flat colour. */
     val canvas: Color get() = wall[wall.size / 2]
+
+    /** Opaque counterpart of the theme's frosted panels. */
+    val solidPanel: Color get() = frost.copy(alpha = 1f)
 
     fun tone(t: Tone): CardTone = tones.getValue(t)
 }
@@ -288,12 +295,35 @@ object ClearType {
 /** A hero title's soft glow, so white type reads on the pale sky. */
 fun TextStyle.glowing(c: ClearColors): TextStyle = copy(shadow = Shadow(c.heroGlow, Offset(0f, 2f), 22f))
 
+/** Also reads the Files-only choice from earlier builds. */
+fun savedCleanAppearance(context: Context): Boolean {
+    val prefs = context.getSharedPreferences("app", Context.MODE_PRIVATE)
+    return prefs.getBoolean("cleanAppearance", prefs.getBoolean("cleanFiles", false))
+}
+
 @Composable
-fun ClearTheme(choice: ThemeChoice, content: @Composable () -> Unit) {
+fun ClearTheme(
+    choice: ThemeChoice,
+    cleanAppearance: Boolean = savedCleanAppearance(LocalContext.current),
+    content: @Composable () -> Unit,
+) {
     val dark = when (choice) {
         ThemeChoice.System -> isSystemInDarkTheme()
         ThemeChoice.Light -> false
         ThemeChoice.Dark -> true
     }
-    CompositionLocalProvider(LocalClearColors provides if (dark) DarkClear else LightClear, content = content)
+    val base = if (dark) DarkClear else LightClear
+    val colors = remember(base, cleanAppearance) {
+        if (cleanAppearance) {
+            val paper = if (dark) Color(0xFF20242A) else Color.White
+            val canvas = if (dark) Color(0xFF111418) else Color(0xFFF2F4F7)
+            val neutral = CardTone(paper, paper, base.ink, base.tone(Tone.Paper).accent)
+            base.copy(
+                clean = true, hero = base.ink, heroGlow = Color.Transparent,
+                desk = canvas, wall = listOf(canvas, canvas), glass = paper, frost = paper,
+                tones = Tone.entries.associateWith { neutral },
+            )
+        } else base
+    }
+    CompositionLocalProvider(LocalClearColors provides colors, content = content)
 }

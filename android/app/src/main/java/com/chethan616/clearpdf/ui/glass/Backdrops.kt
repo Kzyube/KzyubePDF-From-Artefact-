@@ -1,5 +1,6 @@
 package com.chethan616.clearpdf.ui.glass
 
+import androidx.compose.foundation.background
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.AnimationVector4D
 import androidx.compose.animation.core.TwoWayConverter
@@ -109,6 +110,10 @@ private val OffsetPairConverter = TwoWayConverter<Pair<Offset, Offset>, Animatio
  */
 @Composable
 fun Aurora(mood: AuroraMood, modifier: Modifier = Modifier) {
+    if (clear.clean) {
+        androidx.compose.foundation.layout.Spacer(modifier.fillMaxSize().background(clear.desk))
+        return
+    }
     // the old ClearPDF's glossy blobs: their hard, shaded edges are what the glass's lens bends at
     // every rim, so the buttons over them read raised, as they did there
     val custom = GlassSettings.customWallpaper

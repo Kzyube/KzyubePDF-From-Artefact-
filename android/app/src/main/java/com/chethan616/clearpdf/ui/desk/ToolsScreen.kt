@@ -1,5 +1,6 @@
 package com.chethan616.clearpdf.ui.desk
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -101,19 +102,37 @@ private fun toneOf(t: ToolDef): Tone = when (t.key) {
 @Composable
 fun ToolsScreen(vm: AppViewModel) {
     var cat by rememberSaveable { mutableStateOf("All") }
+    val clean = clear.clean
     val tools = ToolCatalog.All.filter { cat == "All" || cat in it.categories }
     LazyColumn(Modifier.fillMaxSize(), contentPadding = PaddingValues(bottom = DockClearance)) {
         item { Spacer(Modifier.windowInsetsTopHeight(WindowInsets.statusBars)) }
         item(key = "header") {
             Spacer(Modifier.height(16.dp))
-            ScreenHeader(null, stringResource(R.string.home_tab_tools), titleStyle = ClearType.ToolsTitle, onBack = { vm.homeTab = HomeTab.Home })
+            ScreenHeader(null, stringResource(R.string.home_tab_tools), titleStyle = if (clean) ClearType.Display else ClearType.ToolsTitle, onBack = { vm.homeTab = HomeTab.Home })
         }
         item(key = "chips") {
             LazyRow(Modifier.chipRowFade(),contentPadding = PaddingValues(horizontal = 20.dp, vertical = 16.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 items(Categories, key = { it.first }) { (k, label) -> com.chethan616.clearpdf.ui.home.DeskChip(stringResource(label), k == cat) { cat = k } }
             }
         }
-        item(key = "bento") {
+        if (clean) {
+            items(tools.size, key = { tools[it].key }) { index ->
+                val tool = tools[index]
+                Row(
+                    Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 3.dp)
+                        .background(clear.solidPanel, com.chethan616.clearpdf.ui.glass.RoundedRectangle(16.dp))
+                        .pressable({ tool.go(vm) }).padding(16.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(14.dp),
+                ) {
+                    Icon(tool.icon, null, Modifier.size(22.dp), tint = clear.tone(Tone.Paper).accent)
+                    Column {
+                        Text(stringResource(tool.label), style = ClearType.BodyStrong, color = clear.ink)
+                        Text(stringResource(tool.about), style = ClearType.Body, color = clear.inkSoft)
+                    }
+                }
+            }
+        } else item(key = "bento") {
             val measurer = rememberTextMeasurer()
             val density = LocalDensity.current
             val names = ToolCatalog.All.map { stringResource(it.label) }

@@ -1615,4 +1615,9 @@
     <string name="settings_your_name">Il tuo nome</string>
     <string name="settings_your_name_hint">Mostrato sopra il saluto di Oggi</string>
     <string name="thoughts_audios">Audio</string>
+    <string name="settings_app_appearance">Aspetto dell’app</string>
+    <string name="app_style_glass">Vetro liquido</string>
+    <string name="app_style_clean">Essenziale</string>
+    <string name="app_style_glass_detail">Predefinito · Superfici traslucide</string>
+    <string name="app_style_clean_detail">Superfici opache</string>
 </resources>

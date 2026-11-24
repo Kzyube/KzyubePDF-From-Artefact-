@@ -46,6 +46,7 @@ fun Modifier.glass(
     styleOverride: GlassStyle? = null,
     luminance: GlassLuminance? = null,
 ): Modifier {
+    if (clear.clean) return clip(shape).background(clear.solidPanel)
     val backdrop = LocalBackdrop.current
     val style = styleOverride ?: GlassSettings.style
     // adaptive: the glass answers what is behind it instead of wearing the theme's wash
@@ -135,6 +136,7 @@ fun GlassHost(
  */
 @Composable
 fun Modifier.wash(shape: Shape = RoundedRectangle(28.dp), tint: Color = clear.glass): Modifier {
+    if (clear.clean) return clip(shape).background(clear.solidPanel)
     val dark = clear.dark
     val rimTop = Color.White.copy(alpha = if (dark) 0.16f else 0.70f)
     val rimBottom = Color.White.copy(alpha = if (dark) 0.03f else 0.18f)

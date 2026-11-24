@@ -275,9 +275,9 @@ fun BoxScope.CreateDock(
                     desk.haptics?.play(if (desk.fanOpen) Feel.Rise else Feel.Fall)
                 }
                 GlassCircle(
-                    onClick = { if (desk.recorder == null) desk.startRecording(vm) }, tap = null, size = 54.dp, surface = Color.White.copy(alpha = 0.30f),
+                    onClick = { if (desk.recorder == null) desk.startRecording(vm) }, tap = null, size = 54.dp, surface = if (c.clean) c.solidPanel else Color.White.copy(alpha = 0.30f),
                     label = stringResource(R.string.create_voice),
-                ) { GlassIcon(LucideIcons.Mic, null, Modifier.size(22.dp), tint = DockInk) }
+                ) { GlassIcon(LucideIcons.Mic, null, Modifier.size(22.dp), tint = if (c.clean) c.ink else DockInk) }
             }
             shown?.let { r ->
                 Box(
@@ -310,7 +310,7 @@ fun BoxScope.CreateDock(
             // the very glass of the Back and menu buttons; the recorder darkens it so its white reads
             .glass(Capsule, c.glass, blur = 3.dp, lensHeight = 14.dp, lensAmount = 26.dp)
             .graphicsLayer { clip = true; shape = Capsule }
-            .drawBehind { drawRect(c.capsule, alpha = lerp(0.5f, 1.9f, morph.value.coerceIn(0f, 1f)).coerceAtMost(1f)) }
+            .drawBehind { drawRect(if (c.clean && shown != null) DockInk else c.capsule, alpha = lerp(0.5f, 1.9f, morph.value.coerceIn(0f, 1f)).coerceAtMost(1f)) }
             .padding(6.dp),
     ) { measurables, constraints ->
         val loose = constraints.copy(minWidth = 0, minHeight = 0)

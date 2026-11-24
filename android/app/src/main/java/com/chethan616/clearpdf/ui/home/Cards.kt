@@ -96,6 +96,7 @@ val CardShape = RoundedRectangle(30.dp)
 /** A desk card's paint: its tone's gradient, a soft light in one corner, a lit rim. */
 @Composable
 fun Modifier.cardPaint(tone: CardTone, glow: Offset = Offset(0.85f, 0.05f)): Modifier {
+    if (clear.clean) return clip(CardShape).background(clear.solidPanel)
     val dark = clear.dark
     return clip(CardShape)
         .drawBehind {
@@ -161,7 +162,7 @@ fun ListCard(
         Column(Modifier.padding(start = 12.dp, end = 12.dp, top = 20.dp, bottom = 14.dp)) {
             WordFitText(
                 note.title.ifBlank { stringResource(R.string.notes_untitled_list) },
-                ClearType.DotTitle.copy(color = tone.ink.copy(alpha = 0.92f), textAlign = TextAlign.Center),
+                (if (clear.clean) ClearType.Title else ClearType.DotTitle).copy(color = tone.ink.copy(alpha = 0.92f), textAlign = TextAlign.Center),
                 maxLines = 3,
                 modifier = Modifier.fillMaxWidth().padding(horizontal = 2.dp),
             )
@@ -259,7 +260,7 @@ fun NoteCard(
     Column(
         modifier.heightIn(min = 156.dp).pressable(onOpen, onLong, pressedScale = 0.96f).cardPaint(tone, Offset(0.1f, 0.0f)).padding(18.dp),
     ) {
-        WordFitText(title.ifBlank { stringResource(R.string.notes_untitled_note) }, ClearType.CardTitle.copy(color = tone.accent), maxLines = 4)
+        WordFitText(title.ifBlank { stringResource(R.string.notes_untitled_note) }, (if (clear.clean) ClearType.Title else ClearType.CardTitle).copy(color = tone.accent), maxLines = 4)
         if (body.isNotBlank() && title.length < 40) {
             Spacer(Modifier.height(8.dp))
             Text(body, style = ClearType.Label, color = tone.ink.copy(alpha = 0.62f), maxLines = 3, overflow = TextOverflow.Ellipsis, modifier = if (fitHeight) Modifier.weight(1f, fill = false) else Modifier)
@@ -297,7 +298,7 @@ fun MapCard(note: Note, onOpen: () -> Unit, onLong: () -> Unit, modifier: Modifi
             Text(stringResource(R.string.mindmap_title), style = ClearType.Caption.copy(fontSize = 11.sp), color = tone.ink.copy(alpha = 0.75f))
         }
         Spacer(Modifier.height(6.dp))
-        WordFitText(note.title.ifBlank { stringResource(R.string.mindmap_title) }, ClearType.CardTitle.copy(color = tone.accent), maxLines = 3)
+        WordFitText(note.title.ifBlank { stringResource(R.string.mindmap_title) }, (if (clear.clean) ClearType.Title else ClearType.CardTitle).copy(color = tone.accent), maxLines = 3)
         Spacer(Modifier.height(10.dp))
         // the map itself, small: on a soft well so its colours read on the lavender
         Canvas(
@@ -328,7 +329,7 @@ fun ThoughtCard(onOpen: () -> Unit, modifier: Modifier = Modifier) {
     val res = androidx.compose.ui.platform.LocalContext.current.resources
     val quote = remember(res) { com.chethan616.clearpdf.notes.thoughtFor(res).quote }
     Column(modifier.heightIn(min = 188.dp).pressable(onOpen, pressedScale = 0.96f).cardPaint(tone, Offset(0.1f, 0.0f)).padding(18.dp)) {
-        WordFitText(stringResource(R.string.thought_title), ClearType.CardTitle.copy(color = tone.accent), maxLines = 4)
+        WordFitText(stringResource(R.string.thought_title), (if (clear.clean) ClearType.Title else ClearType.CardTitle).copy(color = tone.accent), maxLines = 4)
         Spacer(Modifier.height(10.dp))
         Text("“$quote”", style = ClearType.Body.copy(fontSize = 14.sp, lineHeight = 19.sp, fontStyle = androidx.compose.ui.text.font.FontStyle.Italic), color = tone.ink.copy(alpha = 0.8f), maxLines = 5, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis)
         Spacer(Modifier.weight(1f))
@@ -376,7 +377,7 @@ val LocalHomeVm = androidx.compose.runtime.staticCompositionLocalOf<AppViewModel
  */
 @Composable
 fun VoiceCard(note: Note, playing: Boolean, progress: () -> Float, onPlay: () -> Unit, onLong: () -> Unit, modifier: Modifier = Modifier) {
-    val tone = VoiceTone
+    val tone = if (clear.clean) clear.tone(Tone.Paper) else VoiceTone
     Box(
         modifier.height(92.dp).pressable(onPlay, onLong, pressedScale = 0.96f).voicePaint(tone),
     ) {
@@ -384,14 +385,14 @@ fun VoiceCard(note: Note, playing: Boolean, progress: () -> Float, onPlay: () ->
             Modifier.align(Alignment.TopStart).fillMaxWidth().padding(start = 16.dp, end = 14.dp, top = 13.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            PlayMark(playing, Modifier.size(13.dp))
+            PlayMark(playing, Modifier.size(13.dp), tone.ink)
             Spacer(Modifier.width(8.dp))
             Text(
-                note.title, style = ClearType.Label.copy(fontSize = 12.sp, lineHeight = 14.sp), color = Color.White.copy(alpha = 0.95f),
+                note.title, style = ClearType.Label.copy(fontSize = 12.sp, lineHeight = 14.sp), color = tone.ink.copy(alpha = 0.95f),
                 maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f),
             )
             if (note.durationMs > 0) {
-                Text(com.chethan616.clearpdf.ui.viewer.clock(note.durationMs), style = ClearType.Caption.copy(fontSize = 10.5.sp, fontFeatureSettings = "tnum"), color = Color.White.copy(alpha = 0.78f))
+                Text(com.chethan616.clearpdf.ui.viewer.clock(note.durationMs), style = ClearType.Caption.copy(fontSize = 10.5.sp, fontFeatureSettings = "tnum"), color = tone.ink.copy(alpha = 0.78f))
             }
         }
         val bars = remember(note.wave) { voiceBars(note.wave) }
@@ -399,8 +400,8 @@ fun VoiceCard(note: Note, playing: Boolean, progress: () -> Float, onPlay: () ->
         // the mock's waveform: under half the card's width, centred a little below the middle
         Box(Modifier.align(Alignment.Center).padding(top = 14.dp).fillMaxWidth(0.46f).height(46.dp)) {
             // the glow: the same bars, blurred, behind the crisp ones (a still layer: it's cached)
-            Waveform(bars, p, Modifier.matchParentSize().blur(9.dp, BlurredEdgeTreatment.Unbounded).graphicsLayer { alpha = 0.9f })
-            Waveform(bars, p, Modifier.matchParentSize())
+            if (!clear.clean) Waveform(bars, p, Modifier.matchParentSize().blur(9.dp, BlurredEdgeTreatment.Unbounded).graphicsLayer { alpha = 0.9f })
+            Waveform(bars, p, Modifier.matchParentSize(), color = tone.accent)
         }
     }
 }
@@ -410,6 +411,7 @@ private val VoiceTone = CardTone(Color(0xFFA3AAF0), Color(0xFFC2C5F7), Color.Whi
 
 @Composable
 private fun Modifier.voicePaint(tone: CardTone): Modifier {
+    if (clear.clean) return clip(CardShape).background(clear.solidPanel)
     val dark = clear.dark
     return clip(CardShape)
         .drawBehind {
@@ -427,12 +429,12 @@ private fun Modifier.voicePaint(tone: CardTone): Modifier {
 
 /** A rounded play triangle (or two pause bars), in white. */
 @Composable
-private fun PlayMark(playing: Boolean, modifier: Modifier) {
+private fun PlayMark(playing: Boolean, modifier: Modifier, color: Color) {
     Canvas(modifier) {
         if (playing) {
             val w = size.width * 0.3f
-            drawRoundRect(Color.White, Offset(size.width * 0.1f, 0f), Size(w, size.height), CornerRadius(w / 2f))
-            drawRoundRect(Color.White, Offset(size.width * 0.6f, 0f), Size(w, size.height), CornerRadius(w / 2f))
+            drawRoundRect(color, Offset(size.width * 0.1f, 0f), Size(w, size.height), CornerRadius(w / 2f))
+            drawRoundRect(color, Offset(size.width * 0.6f, 0f), Size(w, size.height), CornerRadius(w / 2f))
         } else {
             val path = Path().apply {
                 moveTo(size.width * 0.12f, size.height * 0.05f)
@@ -440,8 +442,8 @@ private fun PlayMark(playing: Boolean, modifier: Modifier) {
                 lineTo(size.width * 0.12f, size.height * 0.95f)
                 close()
             }
-            drawPath(path, Color.White)
-            drawPath(path, Color.White, style = androidx.compose.ui.graphics.drawscope.Stroke(width = size.width * 0.16f, join = androidx.compose.ui.graphics.StrokeJoin.Round))
+            drawPath(path, color)
+            drawPath(path, color, style = androidx.compose.ui.graphics.drawscope.Stroke(width = size.width * 0.16f, join = androidx.compose.ui.graphics.StrokeJoin.Round))
         }
     }
 }
@@ -495,6 +497,18 @@ fun Waveform(levels: List<Float>, progress: () -> Float, modifier: Modifier, col
 /** A collection ("Files", "Pdf"): its word set big in serif, and two papers fanned in the corner. */
 @Composable
 fun CollectionCard(word: String, tone: CardTone, onOpen: () -> Unit, modifier: Modifier = Modifier, height: Dp = 150.dp, count: Int? = null) {
+    if (clear.clean) {
+        Row(
+            modifier.heightIn(min = 64.dp).cardPaint(tone).pressable(onOpen).padding(14.dp),
+            horizontalArrangement = Arrangement.spacedBy(10.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Icon(LucideIcons.FolderOpen, null, Modifier.size(20.dp), tint = tone.accent)
+            Text(word, style = ClearType.Title, color = tone.ink, modifier = Modifier.weight(1f))
+            if (count != null && count > 0) Text(count.toString(), style = ClearType.Label, color = tone.ink)
+        }
+        return
+    }
     Box(modifier.height(height).pressable(onOpen, pressedScale = 0.95f).cardPaint(tone, Offset(0.2f, 1.0f))) {
         Papers(Modifier.align(Alignment.TopEnd).padding(top = 14.dp, end = 14.dp))
         Text(
@@ -637,7 +651,7 @@ fun RecentCard(
             .pressable(onAll, onLong?.let { { it(bounds) } }, pressedScale = 0.95f),
     ) {
         // a blush card peeking out behind, turned
-        Box(Modifier.fillMaxSize().padding(vertical = 8.dp).graphicsLayer { rotationZ = 5f; translationX = 8.dp.toPx() }.clip(CardShape).background(Brush.verticalGradient(listOf(clear.tone(Tone.Blush).top, clear.tone(Tone.Blush).bottom))))
+        if (!clear.clean) Box(Modifier.fillMaxSize().padding(vertical = 8.dp).graphicsLayer { rotationZ = 5f; translationX = 8.dp.toPx() }.clip(CardShape).background(Brush.verticalGradient(listOf(clear.tone(Tone.Blush).top, clear.tone(Tone.Blush).bottom))))
         // the card and the pages fanned on it are the layer the chips' glass refracts
         GlassHost(
             Modifier.fillMaxSize(),

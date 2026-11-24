@@ -1,5 +1,8 @@
 package com.chethan616.clearpdf.ui.glass
 
+import androidx.compose.ui.graphics.compositeOver
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.foundation.background
 import androidx.compose.ui.draw.drawWithContent
 
 import androidx.compose.runtime.setValue
@@ -79,6 +82,16 @@ private fun Modifier.glassControl(
     aroundOut: ((SurroundLuminance?) -> Unit)? = null,
 ): Modifier {
     val backdrop = LocalBackdrop.current
+    if (clear.clean) {
+        val panel = clear.solidPanel
+        return clip(shape).drawBehind {
+            val accent = tintAt?.invoke() ?: tint
+            drawRect(if (accent.isSpecified) accent.compositeOver(panel) else panel)
+            if (surface.isSpecified) drawRect(surface)
+            fill?.invoke()?.let { drawRect(it) }
+        }.pressable(onClick, onLongClick, feel = tap)
+            .then(if (label == null) Modifier else Modifier.semantics { contentDescription = label })
+    }
     // Adaptive luminance on: the glass reads the screen around it and turns to suit, its frost,
     // colour and tint set by that instead of the glass preset. [adaptWash] false keeps the milk or
     // smoke off a control whose ink is the caller's (a chip's label), where only the glass adapts.
@@ -186,6 +199,10 @@ fun rememberBeat(action: () -> Unit, millis: Long = BackBeatMillis): () -> Unit 
  */
 @Composable
 fun Modifier.glassBar(shape: Shape = ChromeCapsule, surface: Color = Color.Unspecified, blur: Dp = 2.dp): Modifier {
+    if (clear.clean) {
+        val panel = clear.solidPanel
+        return clip(shape).background(if (surface.isSpecified) surface.compositeOver(panel) else panel)
+    }
     val backdrop = LocalBackdrop.current
     val scope = rememberCoroutineScope()
     val highlight = remember(scope) { InteractiveHighlight(scope) }

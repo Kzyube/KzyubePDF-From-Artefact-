@@ -1243,4 +1243,9 @@
     <string name="settings_your_name">Ваше имя</string>
     <string name="settings_your_name_hint">Показывается над приветствием «Сегодня»</string>
     <string name="thoughts_audios">Аудио</string>
+    <string name="settings_app_appearance">Оформление приложения</string>
+    <string name="app_style_glass">Жидкое стекло</string>
+    <string name="app_style_clean">Простой</string>
+    <string name="app_style_glass_detail">По умолчанию · Полупрозрачные панели</string>
+    <string name="app_style_clean_detail">Непрозрачные панели</string>
 </resources>

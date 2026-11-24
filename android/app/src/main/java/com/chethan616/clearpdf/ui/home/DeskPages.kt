@@ -1,5 +1,6 @@
 package com.chethan616.clearpdf.ui.home
 
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.animateFloatAsState
@@ -196,6 +197,10 @@ private fun BaselineStack(gaps: List<androidx.compose.ui.unit.Dp>, after: androi
  */
 @Composable
 private fun FadeIntoBlur(from: Float, blur: androidx.compose.ui.unit.Dp, modifier: Modifier = Modifier, content: @Composable () -> Unit) {
+    if (clear.clean) {
+        Box(modifier) { content() }
+        return
+    }
     Box(modifier) {
         Box(
             Modifier.graphicsLayer { compositingStrategy = androidx.compose.ui.graphics.CompositingStrategy.Offscreen }
@@ -274,7 +279,7 @@ fun ThoughtsScreen(vm: AppViewModel, desk: DeskState) {
             FadeIntoBlur(0.5f, m(3.2f, k), Modifier.fillMaxWidth().baselineAt(null, m(239, k))) {
                 Text(
                     stringResource(R.string.thought_title),
-                    style = outfit(500, s(55.5f, k), -0.016f, (84 * k).sp).copy(color = Color.White, textAlign = TextAlign.Center),
+                    style = outfit(500, s(55.5f, k), -0.016f, (84 * k).sp).copy(color = clear.hero, textAlign = TextAlign.Center),
                     modifier = Modifier.fillMaxWidth().padding(horizontal = m(40, k)),
                 )
             }
@@ -289,7 +294,7 @@ fun ThoughtsScreen(vm: AppViewModel, desk: DeskState) {
             Column(Modifier.fillMaxWidth().offset(y = m(452, k)), horizontalAlignment = Alignment.CenterHorizontally) {
                 if (notes.isEmpty()) {
                     Text(
-                        stringResource(R.string.thoughts_empty), style = outfit(400, s(12.9f, k)).copy(color = Color(0xFF2C1E3D), textAlign = TextAlign.Center),
+                        stringResource(R.string.thoughts_empty), style = outfit(400, s(12.9f, k)).copy(color = if (clear.clean) clear.inkSoft else Color(0xFF2C1E3D), textAlign = TextAlign.Center),
                         modifier = Modifier.padding(top = m(60, k), bottom = m(60, k)).padding(horizontal = m(40, k)),
                     )
                 } else {
@@ -335,6 +340,13 @@ internal fun DeskHeaderRow(leading: @Composable () -> Unit, trailing: @Composabl
 /** The mock's "Create new": a white pill (190 × 56 px) in a slate glass ring (212 × 79 px). */
 @Composable
 private fun CreateNewPill(k: Float, modifier: Modifier, onClick: () -> Unit) {
+    if (clear.clean) {
+        GlassPill(onClick, modifier) {
+            Icon(LucideIcons.Plus, null, Modifier.size(18.dp), tint = clear.ink)
+            Text(stringResource(R.string.thoughts_create_new), style = ClearType.BodyStrong, color = clear.ink)
+        }
+        return
+    }
     Box(
         modifier.size(m(212, k), m(79, k)).clip(androidx.compose.foundation.shape.CircleShape).background(Color(0xFF4E5E78).copy(alpha = 0.94f))
             .pressable(onClick, pressedScale = 0.94f),
@@ -497,7 +509,7 @@ private fun DeckCard(
         if (!front) Box(Modifier.matchParentSize().pointerInput(Unit) { detectTapGestures { } })
         // further back: tinted (cream, then pink) and blurred, as the mock's cards behind
         if (d > 0.01f) {
-            val tint = if (d <= 1f) Color(0xFFFBFCF0) else androidx.compose.ui.graphics.lerp(Color(0xFFFBFCF0), Color(0xFFFCEEFD), (d - 1f).coerceIn(0f, 1f))
+            val tint = if (clear.clean) clear.desk else if (d <= 1f) Color(0xFFFBFCF0) else androidx.compose.ui.graphics.lerp(Color(0xFFFBFCF0), Color(0xFFFCEEFD), (d - 1f).coerceIn(0f, 1f))
             Box(
                 Modifier.matchParentSize().clip(RoundedRectangle(m(28, k)))
                     .background(tint.copy(alpha = (0.62f * d).coerceAtMost(0.8f))),
@@ -541,9 +553,12 @@ private fun FrontCard(
     active: Boolean = true,
 ) {
     // a voice memo plays (or pauses) on a tap; anything else opens
+    val c = clear
+    val paper = if (c.clean) c.solidPanel else Color.White
+    val ink = if (c.clean) c.ink else Color.Black
     val open = { if (n.kind == NoteKind.Voice) onPlay() else vm.openNote = n.id }
     val (lead, rest) = leadAndRest(n)
-    Box(modifier.clip(RoundedRectangle(m(28, k))).background(Color.White).pressable(open, onLong, pressedScale = 0.98f, enabled = active)) {
+    Box(modifier.clip(RoundedRectangle(m(28, k))).background(paper).pressable(open, onLong, pressedScale = 0.98f, enabled = active)) {
         val gaps = buildList {
             add(m(47, k)); add(m(22, k))
             if (lead != null) add(m(56, k))
@@ -551,14 +566,14 @@ private fun FrontCard(
             if (n.images.isNotEmpty()) add(m(31, k))
         }
         BaselineStack(gaps, m(26, k), Modifier.padding(horizontal = m(25, k))) {
-            Text(titleOf(n).ifBlank { stringResource(R.string.notes_untitled_note) }, style = outfit(600, s(13.7f, k), -0.03f).copy(color = Color.Black), maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.padding(end = m(60, k)))
+            Text(titleOf(n).ifBlank { stringResource(R.string.notes_untitled_note) }, style = outfit(600, s(13.7f, k), -0.03f).copy(color = ink), maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.padding(end = m(60, k)))
             Text(
                 DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT).format(Date(n.updated)) +
                     (if (n.kind == NoteKind.Voice && n.durationMs > 0) "  ·  " + com.chethan616.clearpdf.ui.viewer.clock(n.durationMs) else ""),
-                style = outfit(400, s(9.2f, k), -0.02f).copy(color = Color(0xFF525658)),
+                style = outfit(400, s(9.2f, k), -0.02f).copy(color = if (c.clean) c.inkSoft else Color(0xFF525658)),
             )
-            if (lead != null) Text(lead, style = outfit(600, s(18.9f, k), -0.005f, (31 * k).sp).copy(color = Color(0xFF2B649B)), maxLines = 3, overflow = TextOverflow.Ellipsis)
-            if (rest.isNotBlank()) Text(rest, style = outfit(400, s(12.9f, k), 0f, (25 * k).sp).copy(color = Color.Black), maxLines = 5, overflow = TextOverflow.Ellipsis)
+            if (lead != null) Text(lead, style = outfit(600, s(18.9f, k), -0.005f, (31 * k).sp).copy(color = if (c.clean) c.tone(Tone.Paper).accent else Color(0xFF2B649B)), maxLines = 3, overflow = TextOverflow.Ellipsis)
+            if (rest.isNotBlank()) Text(rest, style = outfit(400, s(12.9f, k), 0f, (25 * k).sp).copy(color = ink), maxLines = 5, overflow = TextOverflow.Ellipsis)
             if (n.images.isNotEmpty()) {
                 Row(horizontalArrangement = Arrangement.spacedBy(m(16, k))) {
                     NoteImage(n.images[0], Modifier.weight(if (n.images.size > 1) 226f else 1f).height(m(129, k)).clip(RoundedRectangle(m(20, k))))
@@ -571,9 +586,9 @@ private fun FrontCard(
             Box(
                 Modifier.align(Alignment.TopEnd).padding(top = m(28, k), end = m(16, k)).size(m(54, k))
                     .graphicsLayer { shadowElevation = 6.dp.toPx(); shape = androidx.compose.foundation.shape.CircleShape; clip = true; ambientShadowColor = Color(0x22000000); spotShadowColor = Color(0x22000000) }
-                    .background(Color.White).pressable(open, pressedScale = 0.9f, enabled = active),
+                    .background(paper).pressable(open, pressedScale = 0.9f, enabled = active),
                 contentAlignment = Alignment.Center,
-            ) { Icon(LucideIcons.PencilOutline, stringResource(R.string.notes_open), tint = Color(0xFF1A1A1A), modifier = Modifier.size(m(26, k))) }
+            ) { Icon(LucideIcons.PencilOutline, stringResource(R.string.notes_open), tint = if (c.clean) ink else Color(0xFF1A1A1A), modifier = Modifier.size(m(26, k))) }
         }
     }
 }
@@ -610,7 +625,7 @@ fun TodayScreen(vm: AppViewModel) {
             .flatMap { n -> n.items.filter { !it.done && it.text.isNotBlank() } }
     }
     Box(Modifier.fillMaxSize().verticalScroll(rememberScrollState())) {
-        Box(Modifier.fillMaxWidth().height(m(1068, k))) {
+        Box(Modifier.fillMaxWidth().then(if (clear.clean) Modifier else Modifier.height(m(1068, k)))) {
             // the desk's own header: its mark (a tap goes back to the desk) and its menu button
             DeskHeaderRow(
                 leading = {
@@ -632,89 +647,123 @@ fun TodayScreen(vm: AppViewModel) {
                     ) { FourDots(Color.Unspecified) }
                 },
             )
-            // the name: Outfit 300 at 15, its baseline at 178 px; a tap names it (faint "Your name" until then)
-            Box(Modifier.fillMaxWidth().baselineAt(null, m(178, k)), contentAlignment = Alignment.Center) {
-                Text(
-                    name.ifBlank { stringResource(R.string.settings_your_name) }.uppercase(),
-                    style = outfit(300, s(15f, k), 0.01f).copy(color = Color.White.copy(alpha = if (name.isBlank()) 0.55f else 1f), textAlign = TextAlign.Center),
-                    modifier = Modifier.pressable({ naming = true }, pressedScale = 0.94f).padding(horizontal = 12.dp, vertical = 4.dp),
-                )
-            }
-            // the greeting: Outfit 500 at 73, baselines 264 and 354 px, white at 62 %, fading into blur
-            FadeIntoBlur(0.55f, m(2.6f, k), Modifier.fillMaxWidth().baselineAt(null, m(264, k)).graphicsLayer { alpha = 0.62f }) {
-                Text(
-                    greeting, style = outfit(500, s(73f, k), 0f, (90 * k).sp).copy(color = Color.White, textAlign = TextAlign.Center),
-                    modifier = Modifier.fillMaxWidth().padding(horizontal = m(20, k)),
-                )
-            }
-            // the day's thought: a 205 × 200 px frosted card centred at (152, 440), turned 6° left
-            Box(
-                Modifier.offset(m(152 - 102.5f, k), m(440 - 100, k)).size(m(205, k), m(200, k))
-                    .graphicsLayer { rotationZ = -6f }
-                    .clip(RoundedRectangle(m(22, k))).background(Color(0xFFFFF6F6).copy(alpha = 0.86f))
-                    .pressable({ vm.openDeskPage(DeskPage.Thoughts) }, pressedScale = 0.96f),
-            ) {
-                Text(stringResource(R.string.thought_title), style = outfit(500, s(13.4f, k), -0.01f).copy(color = Color(0xFF3B6593)), modifier = Modifier.baselineAt(m(17, k), m(42, k)))
-                Text(shortDate(System.currentTimeMillis()), style = outfit(400, s(10f, k)).copy(color = Color(0xFF9D9591)), modifier = Modifier.baselineAt(m(17, k), m(66, k)))
-                FadeIntoBlur(0.48f, m(3.5f, k), Modifier.padding(start = m(17, k), end = m(14, k)).baselineAt(null, m(112, k))) {
-                    Text(
-                        (thought.quote + " " + thought.reflection).replace("**", ""), style = outfit(400, s(11.1f, k), 0f, (16 * k).sp).copy(color = Color(0xFF1E1515)),
-                        maxLines = 5, overflow = TextOverflow.Clip,
-                    )
-                }
-            }
-            // the latest picture: 222 × 272 px centred at (343, 605), turned 2° right, over the thought
-            val pic = pictures.firstOrNull()
-            val scan = if (pic == null) scanRows(vm.recentRows()).firstOrNull() else null
-            Box(
-                Modifier.offset(m(343 - 111, k), m(605 - 136, k)).size(m(222, k), m(272, k))
-                    .graphicsLayer { rotationZ = 2f; shadowElevation = 4.dp.toPx(); shape = RoundedRectangle(m(28, k)); clip = true }
-                    .background(Color(0xFF9CCDE4))
-                    // the picture's own note, or the scan itself; with neither, the desk's pictures
-                    .pressable({
+            if (clear.clean) {
+                val picture = pictures.firstOrNull()
+                val scan = if (picture == null) scanRows(vm.recentRows()).firstOrNull() else null
+                Column(
+                    Modifier.fillMaxWidth().statusBarsPadding().padding(start = 16.dp, end = 16.dp, top = 80.dp, bottom = 96.dp),
+                    verticalArrangement = Arrangement.spacedBy(12.dp),
+                ) {
+                    Text(name.ifBlank { stringResource(R.string.settings_your_name) },
+                        modifier = Modifier.pressable({ naming = true }).padding(vertical = 8.dp),
+                        style = ClearType.Label, color = clear.inkSoft)
+                    Text(greeting, style = ClearType.Display, color = clear.ink)
+                    Column(Modifier.fillMaxWidth().clip(RoundedRectangle(16.dp)).background(clear.solidPanel)
+                        .pressable({ vm.openDeskPage(DeskPage.Thoughts) }).padding(16.dp)) {
+                        Text(stringResource(R.string.thought_title), style = ClearType.Title, color = clear.ink)
+                        Text((thought.quote + " " + thought.reflection).replace("**", ""), style = ClearType.Body, color = clear.inkSoft)
+                    }
+                    com.chethan616.clearpdf.ui.glass.GlassRow(stringResource(R.string.desk_highlights), {
                         when {
-                            pic != null -> vm.openNote = pic.note.id
+                            picture != null -> vm.openNote = picture.note.id
                             scan != null -> scan.open()
                             else -> { vm.deskPages.clear(); vm.deskShelf = DeskFilter.Images }
                         }
-                    }, pressedScale = 0.96f),
-            ) {
-                if (pic != null) NoteImage(pic.name, Modifier.matchParentSize(), maxPx = 900)
-                else if (scan != null) PageFill(vm, scan.thumbPath)
-                else Icon(LucideIcons.Images, null, tint = Color.White.copy(alpha = 0.7f), modifier = Modifier.align(Alignment.Center).size(m(56, k)))
-                // a scanned page is white: a soft shade under the label so it still reads
-                if (pic == null && scan != null) Box(Modifier.fillMaxWidth().height(m(90, k)).background(Brush.verticalGradient(listOf(Color.Black.copy(alpha = 0.32f), Color.Transparent))))
-                Text(stringResource(R.string.desk_highlights), style = outfit(500, s(13.4f, k), -0.01f).copy(color = Color.White), modifier = Modifier.baselineAt(m(25, k), m(37, k)))
-                Text(shortDate(pic?.note?.updated ?: scan?.date ?: System.currentTimeMillis()), style = outfit(500, s(10.6f, k)).copy(color = Color.White), modifier = Modifier.baselineAt(m(25, k), m(61, k)))
-            }
-            // the date: frosted glass, 220 × 202 px at (55, 700), 30 px corners
-            val now = Date()
-            Box(
-                Modifier.offset(m(55, k), m(700, k)).size(m(220, k), m(202, k))
-                    .graphicsLayer { shadowElevation = 3.dp.toPx(); shape = RoundedRectangle(m(30, k)); clip = true; ambientShadowColor = Color(0x22000000); spotShadowColor = Color(0x22000000) }
-                    .background(Color(0xFFF4F8FF).copy(alpha = 0.78f))
-                    // the day's to-dos: their lists on the desk (or the desk itself, all done)
-                    .pressable({ vm.deskPages.clear(); if (todos.isNotEmpty()) vm.deskShelf = DeskFilter.Todo }, pressedScale = 0.96f),
-            ) {
-                Text(java.text.SimpleDateFormat("EEEE", java.util.Locale.getDefault()).format(now), style = outfit(700, s(37.6f, k), -0.035f).copy(color = Color.Black), maxLines = 1, modifier = Modifier.baselineAt(m(22, k), m(52, k)))
-                Text(
-                    java.text.SimpleDateFormat(android.text.format.DateFormat.getBestDateTimePattern(java.util.Locale.getDefault(), "MMMd"), java.util.Locale.getDefault()).format(now),
-                    style = outfit(300, s(32f, k)).copy(color = Color(0xFF737D87)), maxLines = 1, modifier = Modifier.baselineAt(m(22, k), m(96, k)),
-                )
-                // the overview: how many to-dos are left, and the next one
-                Text(
-                    if (todos.isEmpty()) stringResource(R.string.today_all_done)
-                    else androidx.compose.ui.res.pluralStringResource(R.plurals.today_todos_left, todos.size, todos.size),
-                    style = outfit(500, s(13.4f, k), -0.01f).copy(color = Color(0xFF3B6593)), maxLines = 1, overflow = TextOverflow.Ellipsis,
-                    modifier = Modifier.padding(end = m(16, k)).baselineAt(m(22, k), m(133, k)),
-                )
-                todos.firstOrNull()?.let { next ->
+                    }, modifier = Modifier.background(clear.solidPanel, RoundedRectangle(16.dp)), icon = LucideIcons.Images)
+                    Column(Modifier.fillMaxWidth().clip(RoundedRectangle(16.dp)).background(clear.solidPanel)
+                        .pressable({ vm.deskPages.clear(); if (todos.isNotEmpty()) vm.deskShelf = DeskFilter.Todo }).padding(16.dp)) {
+                        Text(shortDate(System.currentTimeMillis()), style = ClearType.Title, color = clear.ink)
+                        Text(if (todos.isEmpty()) stringResource(R.string.today_all_done) else
+                            androidx.compose.ui.res.pluralStringResource(R.plurals.today_todos_left, todos.size, todos.size),
+                            style = ClearType.Body, color = clear.inkSoft)
+                        todos.firstOrNull()?.let { Text(it.text, style = ClearType.Body, color = clear.ink) }
+                    }
+                }
+            } else {
+                // the name: Outfit 300 at 15, its baseline at 178 px; a tap names it (faint "Your name" until then)
+                Box(Modifier.fillMaxWidth().baselineAt(null, m(178, k)), contentAlignment = Alignment.Center) {
                     Text(
-                        next.text, style = outfit(400, s(11.1f, k)).copy(color = Color(0xFF1E1515)), maxLines = 1, overflow = TextOverflow.Ellipsis,
-                        modifier = Modifier.padding(end = m(16, k)).baselineAt(m(22, k), m(153, k)),
+                        name.ifBlank { stringResource(R.string.settings_your_name) }.uppercase(),
+                        style = outfit(300, s(15f, k), 0.01f).copy(color = Color.White.copy(alpha = if (name.isBlank()) 0.55f else 1f), textAlign = TextAlign.Center),
+                        modifier = Modifier.pressable({ naming = true }, pressedScale = 0.94f).padding(horizontal = 12.dp, vertical = 4.dp),
                     )
                 }
-                Text(stringResource(R.string.today_overview), style = outfit(400, s(11.1f, k)).copy(color = Color(0xFF84909C)), modifier = Modifier.baselineAt(m(22, k), m(177, k)))
+                // the greeting: Outfit 500 at 73, baselines 264 and 354 px, white at 62 %, fading into blur
+                FadeIntoBlur(0.55f, m(2.6f, k), Modifier.fillMaxWidth().baselineAt(null, m(264, k)).graphicsLayer { alpha = 0.62f }) {
+                    Text(
+                        greeting, style = outfit(500, s(73f, k), 0f, (90 * k).sp).copy(color = Color.White, textAlign = TextAlign.Center),
+                        modifier = Modifier.fillMaxWidth().padding(horizontal = m(20, k)),
+                    )
+                }
+                // the day's thought: a 205 × 200 px frosted card centred at (152, 440), turned 6° left
+                Box(
+                    Modifier.offset(m(152 - 102.5f, k), m(440 - 100, k)).size(m(205, k), m(200, k))
+                        .graphicsLayer { rotationZ = -6f }
+                        .clip(RoundedRectangle(m(22, k))).background(Color(0xFFFFF6F6).copy(alpha = 0.86f))
+                        .pressable({ vm.openDeskPage(DeskPage.Thoughts) }, pressedScale = 0.96f),
+                ) {
+                    Text(stringResource(R.string.thought_title), style = outfit(500, s(13.4f, k), -0.01f).copy(color = Color(0xFF3B6593)), modifier = Modifier.baselineAt(m(17, k), m(42, k)))
+                    Text(shortDate(System.currentTimeMillis()), style = outfit(400, s(10f, k)).copy(color = Color(0xFF9D9591)), modifier = Modifier.baselineAt(m(17, k), m(66, k)))
+                    FadeIntoBlur(0.48f, m(3.5f, k), Modifier.padding(start = m(17, k), end = m(14, k)).baselineAt(null, m(112, k))) {
+                        Text(
+                            (thought.quote + " " + thought.reflection).replace("**", ""), style = outfit(400, s(11.1f, k), 0f, (16 * k).sp).copy(color = Color(0xFF1E1515)),
+                            maxLines = 5, overflow = TextOverflow.Clip,
+                        )
+                    }
+                }
+                // the latest picture: 222 × 272 px centred at (343, 605), turned 2° right, over the thought
+                val pic = pictures.firstOrNull()
+                val scan = if (pic == null) scanRows(vm.recentRows()).firstOrNull() else null
+                Box(
+                    Modifier.offset(m(343 - 111, k), m(605 - 136, k)).size(m(222, k), m(272, k))
+                        .graphicsLayer { rotationZ = 2f; shadowElevation = 4.dp.toPx(); shape = RoundedRectangle(m(28, k)); clip = true }
+                        .background(Color(0xFF9CCDE4))
+                        // the picture's own note, or the scan itself; with neither, the desk's pictures
+                        .pressable({
+                            when {
+                                pic != null -> vm.openNote = pic.note.id
+                                scan != null -> scan.open()
+                                else -> { vm.deskPages.clear(); vm.deskShelf = DeskFilter.Images }
+                            }
+                        }, pressedScale = 0.96f),
+                ) {
+                    if (pic != null) NoteImage(pic.name, Modifier.matchParentSize(), maxPx = 900)
+                    else if (scan != null) PageFill(vm, scan.thumbPath)
+                    else Icon(LucideIcons.Images, null, tint = Color.White.copy(alpha = 0.7f), modifier = Modifier.align(Alignment.Center).size(m(56, k)))
+                    // a scanned page is white: a soft shade under the label so it still reads
+                    if (pic == null && scan != null) Box(Modifier.fillMaxWidth().height(m(90, k)).background(Brush.verticalGradient(listOf(Color.Black.copy(alpha = 0.32f), Color.Transparent))))
+                    Text(stringResource(R.string.desk_highlights), style = outfit(500, s(13.4f, k), -0.01f).copy(color = Color.White), modifier = Modifier.baselineAt(m(25, k), m(37, k)))
+                    Text(shortDate(pic?.note?.updated ?: scan?.date ?: System.currentTimeMillis()), style = outfit(500, s(10.6f, k)).copy(color = Color.White), modifier = Modifier.baselineAt(m(25, k), m(61, k)))
+                }
+                // the date: frosted glass, 220 × 202 px at (55, 700), 30 px corners
+                val now = Date()
+                Box(
+                    Modifier.offset(m(55, k), m(700, k)).size(m(220, k), m(202, k))
+                        .graphicsLayer { shadowElevation = 3.dp.toPx(); shape = RoundedRectangle(m(30, k)); clip = true; ambientShadowColor = Color(0x22000000); spotShadowColor = Color(0x22000000) }
+                        .background(Color(0xFFF4F8FF).copy(alpha = 0.78f))
+                        // the day's to-dos: their lists on the desk (or the desk itself, all done)
+                        .pressable({ vm.deskPages.clear(); if (todos.isNotEmpty()) vm.deskShelf = DeskFilter.Todo }, pressedScale = 0.96f),
+                ) {
+                    Text(java.text.SimpleDateFormat("EEEE", java.util.Locale.getDefault()).format(now), style = outfit(700, s(37.6f, k), -0.035f).copy(color = Color.Black), maxLines = 1, modifier = Modifier.baselineAt(m(22, k), m(52, k)))
+                    Text(
+                        java.text.SimpleDateFormat(android.text.format.DateFormat.getBestDateTimePattern(java.util.Locale.getDefault(), "MMMd"), java.util.Locale.getDefault()).format(now),
+                        style = outfit(300, s(32f, k)).copy(color = Color(0xFF737D87)), maxLines = 1, modifier = Modifier.baselineAt(m(22, k), m(96, k)),
+                    )
+                    // the overview: how many to-dos are left, and the next one
+                    Text(
+                        if (todos.isEmpty()) stringResource(R.string.today_all_done)
+                        else androidx.compose.ui.res.pluralStringResource(R.plurals.today_todos_left, todos.size, todos.size),
+                        style = outfit(500, s(13.4f, k), -0.01f).copy(color = Color(0xFF3B6593)), maxLines = 1, overflow = TextOverflow.Ellipsis,
+                        modifier = Modifier.padding(end = m(16, k)).baselineAt(m(22, k), m(133, k)),
+                    )
+                    todos.firstOrNull()?.let { next ->
+                        Text(
+                            next.text, style = outfit(400, s(11.1f, k)).copy(color = Color(0xFF1E1515)), maxLines = 1, overflow = TextOverflow.Ellipsis,
+                            modifier = Modifier.padding(end = m(16, k)).baselineAt(m(22, k), m(153, k)),
+                        )
+                    }
+                    Text(stringResource(R.string.today_overview), style = outfit(400, s(11.1f, k)).copy(color = Color(0xFF84909C)), modifier = Modifier.baselineAt(m(22, k), m(177, k)))
+                }
             }
         }
     }

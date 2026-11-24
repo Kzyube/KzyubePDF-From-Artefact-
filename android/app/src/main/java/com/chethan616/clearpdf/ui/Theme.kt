@@ -11,6 +11,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.compositeOver
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -89,13 +90,13 @@ enum class ThemeChoice { System, Light, Dark }
 private fun pdfColorsFrom(cc: com.chethan616.clearpdf.ui.theme.ClearColors): PdfColors {
     val candy = com.chethan616.clearpdf.ui.theme.Candy
     val dark = cc.dark
-    val surface = if (dark) Color(0xFF12132B) else Color(0xFFF5F7FB)
-    val raised = if (dark) Color(0xFF1C1D3E) else Color(0xFFE9EDF4)
+    val surface = if (cc.clean) cc.solidPanel else if (dark) Color(0xFF12132B) else Color(0xFFF5F7FB)
+    val raised = if (cc.clean) cc.canvas else if (dark) Color(0xFF1C1D3E) else Color(0xFFE9EDF4)
     return PdfColors(
         dark = dark,
         surface = surface,
         surfaceRaised = raised,
-        pressed = if (dark) Color(0xFF2A2B52) else Color(0xFFDDE3EC),
+        pressed = if (cc.clean) cc.ink.copy(alpha = 0.12f).compositeOver(surface) else if (dark) Color(0xFF2A2B52) else Color(0xFFDDE3EC),
         desk = cc.desk,
         pageEdge = if (dark) Color.Transparent else Color(0x1F000000),
         text = cc.ink,

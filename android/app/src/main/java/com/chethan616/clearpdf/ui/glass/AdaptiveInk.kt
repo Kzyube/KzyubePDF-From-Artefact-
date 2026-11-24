@@ -36,6 +36,7 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.unit.dp
+import com.chethan616.clearpdf.ui.theme.clear
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.first
@@ -183,7 +184,7 @@ fun ProvideScreenInk(enabled: Boolean = true, content: @Composable () -> Unit) {
     val view = LocalView.current
     val window = remember(view) { view.context.findActivity()?.window }
     val sampler = remember { ScreenInkSampler() }
-    val runs = enabled && above == null && window != null
+    val runs = enabled && !clear.clean && above == null && window != null
     if (runs && window != null) LaunchedEffect(window, view) { sampler.run(window, view) }
     CompositionLocalProvider(LocalScreenInk provides (above ?: if (runs) sampler else null), content = content)
 }
@@ -210,7 +211,7 @@ class SurroundLuminance internal constructor(initial: Float) {
 fun rememberSurroundLuminance(): SurroundLuminance? {
     val sampler = LocalScreenInk.current
     if (!GlassSettings.adaptive || sampler == null) return null
-    val dark = com.chethan616.clearpdf.ui.theme.clear.dark
+    val dark = clear.dark
     val state = remember { SurroundLuminance(sampler.frame?.average() ?: if (dark) 0.14f else 0.86f) }
     val gap = with(LocalDensity.current) { 7.dp.toPx() }
     val overlays = LocalGlassOverlayHost.current
@@ -307,4 +308,5 @@ private tailrec fun Context.findActivity(): Activity? = when (this) {
  */
 @Composable
 fun rememberGlassInk(fallback: Color): InkProbe =
-    if (LocalScreenInk.current != null) rememberAdaptiveInk(fallback) else remember(fallback) { InkProbe(Modifier, fallback) }
+    if (clear.clean) InkProbe(Modifier, clear.ink)
+    else if (LocalScreenInk.current != null) rememberAdaptiveInk(fallback) else remember(fallback) { InkProbe(Modifier, fallback) }

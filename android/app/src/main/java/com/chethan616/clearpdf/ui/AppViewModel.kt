@@ -975,6 +975,17 @@ class AppViewModel(app: Application, private val saved: SavedStateHandle) : Andr
         appPrefs.edit().putString("theme", t.name).apply()
     }
 
+    /** Whether the app uses solid surfaces in the current app theme. */
+    var cleanAppearance by mutableStateOf(com.chethan616.clearpdf.ui.theme.savedCleanAppearance(app))
+        private set
+
+    fun updateCleanAppearance(clean: Boolean) {
+        cleanAppearance = clean
+        appPrefs.edit().putBoolean("cleanAppearance", clean).apply()
+        com.chethan616.clearpdf.widget.Widgets.refreshAll(getApplication())
+        com.chethan616.clearpdf.widget.Widgets.refreshRecent(this, force = true)
+    }
+
     /**
      * Extra Features ▸ the status bar in documents: shown with the viewer's bars, and the page uses the
      * whole screen when they hide (off: the reference's black band where the camera is).

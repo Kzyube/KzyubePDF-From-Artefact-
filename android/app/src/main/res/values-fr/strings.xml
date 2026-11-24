@@ -1505,4 +1505,9 @@
     <string name="settings_your_name">Votre nom</string>
     <string name="settings_your_name_hint">Affiché au-dessus du message d’Aujourd’hui</string>
     <string name="thoughts_audios">Audios</string>
+    <string name="settings_app_appearance">Apparence de l’application</string>
+    <string name="app_style_glass">Verre liquide</string>
+    <string name="app_style_clean">Épuré</string>
+    <string name="app_style_glass_detail">Par défaut · Surfaces translucides</string>
+    <string name="app_style_clean_detail">Surfaces opaques</string>
 </resources>

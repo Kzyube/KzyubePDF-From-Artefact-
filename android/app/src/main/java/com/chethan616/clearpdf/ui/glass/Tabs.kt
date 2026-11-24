@@ -4,6 +4,11 @@ import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.EaseOut
 import androidx.compose.animation.core.spring
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.selection.selectableGroup
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
@@ -90,6 +95,24 @@ fun GlassTabs(
     textStyle: TextStyle = ClearType.Label,
 ) {
     val c = clear
+    if (c.clean) {
+        Row(modifier.clip(Capsule).background(c.solidPanel).selectableGroup().padding(2.dp),
+            verticalAlignment = Alignment.CenterVertically) {
+            tabs.forEachIndexed { index, tab ->
+                val active = index == selected
+                Column(
+                    Modifier.weight(1f).heightIn(min = height - 4.dp).clip(Capsule)
+                        .background(if (active) com.chethan616.clearpdf.ui.theme.Candy.Sky.copy(alpha = 0.16f) else Color.Transparent)
+                        .pressable({ onSelect(index) }, role = Role.Tab).semantics { this.selected = active; contentDescription = tab.label },
+                    horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center,
+                ) {
+                    tab.icon?.let { Icon(it, null, Modifier.size(20.dp), tint = c.ink) }
+                    if (tab.label.isNotEmpty()) Text(tab.label, style = textStyle, color = c.ink, textAlign = TextAlign.Center)
+                }
+            }
+        }
+        return
+    }
     val backdrop = LocalBackdrop.current
     val haptics = LocalHaptics.current
     val count = tabs.size

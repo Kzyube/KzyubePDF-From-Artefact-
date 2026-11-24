@@ -122,7 +122,7 @@ import kotlinx.coroutines.delay
 @Composable
 fun ClearApp(vm: AppViewModel, onBrowse: () -> Unit, onPickSignatureImage: () -> Unit) {
     val overlays = remember { GlassOverlayHost() }
-    ClearTheme(vm.theme) {
+    ClearTheme(vm.theme, vm.cleanAppearance) {
         PdfcraftTheme(vm.theme) {
             ProvideGlassHaptics {
                 // Adaptive luminance: one sampler of the window for every screen's glass

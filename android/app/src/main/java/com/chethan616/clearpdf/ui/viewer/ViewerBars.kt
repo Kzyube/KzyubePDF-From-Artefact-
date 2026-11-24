@@ -71,6 +71,7 @@ import com.chethan616.clearpdf.ui.glass.GlassMenu
 import com.chethan616.clearpdf.ui.glass.GlassMenuItem
 import com.chethan616.clearpdf.ui.glass.GlassMotion
 import com.chethan616.clearpdf.ui.glass.GlassPill
+import com.chethan616.clearpdf.ui.glass.RoundedRectangle
 import com.chethan616.clearpdf.ui.glass.LocalGlassInk
 import com.chethan616.clearpdf.ui.glass.glass
 import com.chethan616.clearpdf.ui.glass.glassBar
@@ -353,7 +354,9 @@ fun QuickToolbar(
     moreTools: List<QuickTool> = emptyList(),
     onCustomize: ((Rect) -> Unit)? = null,
 ) {
-    val slots = dockSlots(LocalConfiguration.current.screenWidthDp)
+    val width = LocalConfiguration.current.screenWidthDp
+    // Leave room for a readable label and keep the remaining actions in More tools.
+    val slots = if (clear.clean) ((width - 24) / 76 - 1).coerceIn(1, 8) else dockSlots(width)
     val shown = tools.take(slots)
     // The four-dot control is an anchored action menu, not another bottom sheet.  Keep the
     // clipped-off toolbar actions in the same menu so every action remains reachable on phones.
@@ -369,7 +372,26 @@ fun QuickToolbar(
             lit = null
         }
     }
-    Row(
+    if (clear.clean) {
+        Row(
+            Modifier.fillMaxWidth().height(BottomBarHeight).padding(horizontal = 12.dp, vertical = 4.dp)
+                .glassBar(RoundedRectangle(16.dp)).padding(4.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            for (tool in shown) {
+                LabeledDockItem(tool.icon, stringResource(tool.label), Modifier.weight(1f), lit == tool) {
+                    lit = tool
+                    onTool(tool)
+                }
+            }
+            if (overflow.isNotEmpty() || onCustomize != null) {
+                LabeledDockItem(
+                    LucideIcons.LayoutGrid, stringResource(R.string.common_tool_more_tools),
+                    Modifier.weight(1f).onGloballyPositioned { moreRect = it.boundsInWindow() }, menuAt != null,
+                ) { menuAt = moreRect }
+            }
+        }
+    } else Row(
         Modifier.fillMaxWidth().height(BottomBarHeight).padding(horizontal = 12.dp, vertical = 8.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(10.dp),
@@ -404,6 +426,22 @@ fun QuickToolbar(
             overflow.forEach { tool -> add(GlassMenuItem(stringResource(tool.title), tool.icon) { onTool(tool) }) }
             if (onCustomize != null) add(GlassMenuItem(stringResource(R.string.toolbar_customize), LucideIcons.SlidersHorizontal) { onCustomize(anchor) })
         })
+    }
+}
+
+@Composable
+private fun LabeledDockItem(icon: ImageVector, label: String, modifier: Modifier, lit: Boolean, onClick: () -> Unit) {
+    val c = clear
+    Column(
+        modifier.fillMaxHeight().clip(RoundedRectangle(12.dp))
+            .background(if (lit) Candy.Sky.copy(alpha = 0.16f) else Color.Transparent)
+            .pressable(onClick).padding(horizontal = 2.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center,
+    ) {
+        Icon(icon, null, Modifier.size(20.dp), tint = c.ink)
+        Text(label, style = ClearType.Caption, color = c.ink, maxLines = 2, overflow = TextOverflow.Ellipsis,
+            textAlign = androidx.compose.ui.text.style.TextAlign.Center)
     }
 }
 

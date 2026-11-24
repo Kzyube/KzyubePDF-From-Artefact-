@@ -1,6 +1,7 @@
 package com.chethan616.clearpdf.ui.desk
 
 import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -8,22 +9,25 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBars
+import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.windowInsetsBottomHeight
-import androidx.compose.foundation.layout.windowInsetsTopHeight
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Icon
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -67,20 +71,19 @@ import com.chethan616.clearpdf.ui.theme.Candy
 import com.chethan616.clearpdf.ui.theme.ClearType
 import com.chethan616.clearpdf.ui.theme.clear
 import com.chethan616.clearpdf.ui.glass.Capsule
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import kotlinx.coroutines.delay
 
 /** At most this many rows share one panel, so a long folder isn't one giant item. */
 private const val PanelRows = 20
 
 /**
- * Files: a big title with the count, a glass search capsule, Recent / Starred / On device, and the
- * files grouped (by day, or by folder) in wash panels. A long press starts selecting.
+ * Files grouped by day or folder, with a search field and Recent / Starred / On device filters.
+ * A long press starts selecting.
  */
 @Composable
 fun FilesScreen(vm: AppViewModel, onBrowse: () -> Unit) {
     val c = clear
+    val clean = vm.cleanAppearance
     var tab by rememberSaveable { mutableIntStateOf(0) }
     var query by rememberSaveable { mutableStateOf("") }
     var sortByName by rememberSaveable { mutableStateOf(false) }
@@ -134,14 +137,17 @@ fun FilesScreen(vm: AppViewModel, onBrowse: () -> Unit) {
         stringResource(R.string.files_this_week), stringResource(R.string.files_earlier),
     )
     val internal = stringResource(R.string.home_internal_storage)
-    LazyColumn(Modifier.fillMaxSize(), contentPadding = PaddingValues(bottom = DockClearance)) {
-        item { Spacer(Modifier.windowInsetsTopHeight(WindowInsets.statusBars)) }
+    LazyColumn(
+        modifier = Modifier.fillMaxSize().windowInsetsPadding(WindowInsets.safeDrawing.only(WindowInsetsSides.Top)),
+        contentPadding = PaddingValues(bottom = DockClearance),
+    ) {
         item(key = "header") {
             Spacer(Modifier.height(16.dp))
             if (vm.selectedFiles.isNotEmpty()) {
                 SelectionHeader(vm, recent = tab == 0) { confirmDelete = true }
             } else {
-                ScreenHeader(pluralStringResource(R.plurals.files_count, rows.size, rows.size), stringResource(R.string.home_tab_files), onBack = { vm.homeTab = HomeTab.Home }) {
+                ScreenHeader(pluralStringResource(R.plurals.files_count, rows.size, rows.size), stringResource(R.string.home_tab_files),
+                    onBack = { vm.homeTab = HomeTab.Home }, onWallpaper = !clean) {
                     com.chethan616.clearpdf.ui.glass.HeaderGlassButton(
                         onClick = { menuOpen = true }, label = stringResource(R.string.common_more_options),
                         modifier = Modifier.onGloballyPositioned { menuAnchor = it.boundsInWindow() },
@@ -149,7 +155,7 @@ fun FilesScreen(vm: AppViewModel, onBrowse: () -> Unit) {
                 }
             }
         }
-        item(key = "search") { SearchCapsule(query, { query = it }, onSearch = { vm.addRecentSearch(query) }) }
+        item(key = "search") { SearchCapsule(query, { query = it }, clean, onSearch = { vm.addRecentSearch(query) }) }
         if (query.isBlank()) {
             item(key = "tabs") {
                 GlassTabs(
@@ -235,13 +241,13 @@ fun FilesScreen(vm: AppViewModel, onBrowse: () -> Unit) {
     }
 }
 
-/** [rows] under an optional [title], in wash panels of at most [PanelRows]. */
+/** [rows] under an optional [title], in panels of at most [PanelRows]. */
 private fun LazyListScope.panels(vm: AppViewModel, key: String, title: String?, rows: List<FileRow>, recent: Boolean) {
     if (title != null) {
         item(key = "t-$key") {
             Row(Modifier.fillMaxWidth().padding(start = 24.dp, end = 24.dp, top = 22.dp, bottom = 8.dp), verticalAlignment = Alignment.Bottom) {
                 Text(title, style = ClearType.Title, color = clear.ink, modifier = Modifier.weight(1f))
-                Text(rows.size.toString(), style = ClearType.Number, color = clear.inkFaint)
+                Text(rows.size.toString(), style = ClearType.Number, color = if (vm.cleanAppearance) clear.ink else clear.inkFaint)
             }
         }
     } else {
@@ -251,20 +257,25 @@ private fun LazyListScope.panels(vm: AppViewModel, key: String, title: String?, 
         item(key = "p-$key-$i") {
             WashPanel(Modifier.padding(horizontal = 16.dp, vertical = 4.dp).fillMaxWidth()) {
                 Spacer(Modifier.height(4.dp))
-                chunk.forEach { r -> FileListItem(vm, r, recent) }
+                chunk.forEachIndexed { index, r ->
+                    if (vm.cleanAppearance && index > 0) HorizontalDivider(Modifier.padding(horizontal = 14.dp), color = clear.line)
+                    FileListItem(vm, r, recent)
+                }
                 Spacer(Modifier.height(4.dp))
             }
         }
     }
 }
 
-/** The search capsule: glass, a candy cursor, a clear button. */
+/** The Files search capsule, including its clear button and IME search action. */
 @Composable
-private fun SearchCapsule(query: String, onQuery: (String) -> Unit, onSearch: () -> Unit) {
+private fun SearchCapsule(query: String, onQuery: (String) -> Unit, clean: Boolean, onSearch: () -> Unit) {
     val c = clear
     val hint = stringResource(R.string.home_search_your_files)
     Row(
-        Modifier.padding(horizontal = 16.dp, vertical = 10.dp).fillMaxWidth().height(52.dp).glass(Capsule, blur = 4.dp).padding(start = 18.dp, end = 6.dp),
+        Modifier.padding(horizontal = 16.dp, vertical = 10.dp).fillMaxWidth().height(52.dp)
+            .then(if (clean) Modifier.background(c.solidPanel, Capsule) else Modifier.glass(Capsule, blur = 4.dp))
+            .padding(start = 18.dp, end = 6.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Icon(LucideIcons.Search, null, tint = c.inkSoft, modifier = Modifier.size(20.dp))
@@ -275,7 +286,7 @@ private fun SearchCapsule(query: String, onQuery: (String) -> Unit, onSearch: ()
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
             keyboardActions = KeyboardActions(onSearch = { onSearch() }),
             modifier = Modifier.weight(1f),
-            decorationBox = { inner -> Box { if (query.isEmpty()) Text(hint, style = ClearType.Body, color = c.inkFaint); inner() } },
+            decorationBox = { inner -> Box { if (query.isEmpty()) Text(hint, style = ClearType.Body, color = if (clean) c.inkSoft else c.inkFaint); inner() } },
         )
         if (query.isNotEmpty()) {
             Box(Modifier.size(40.dp).pressable({ onQuery("") }), contentAlignment = Alignment.Center) {

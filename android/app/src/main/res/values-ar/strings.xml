@@ -1282,4 +1282,9 @@
     <string name="settings_your_name">اسمك</string>
     <string name="settings_your_name_hint">يظهر فوق تحية اليوم</string>
     <string name="thoughts_audios">صوتيات</string>
+    <string name="settings_app_appearance">مظهر التطبيق</string>
+    <string name="app_style_glass">الزجاج السائل</string>
+    <string name="app_style_clean">بسيط</string>
+    <string name="app_style_glass_detail">الافتراضي · أسطح شبه شفافة</string>
+    <string name="app_style_clean_detail">أسطح معتمة</string>
 </resources>

@@ -240,7 +240,7 @@ private fun Title(eyebrow: String, title: String, accent: String, body: String, 
             buildAnnotatedString {
                 append(title)
                 append(" ")
-                withStyle(SpanStyle(brush = Brush.linearGradient(listOf(Color.White, Color(0xFFFFD6EE), Color(0xFFD7E4FF))))) { append(accent) }
+                withStyle(if (c.clean) SpanStyle(color = c.tone(Tone.Paper).accent) else SpanStyle(brush = Brush.linearGradient(listOf(Color.White, Color(0xFFFFD6EE), Color(0xFFD7E4FF))))) { append(accent) }
             },
             style = ClearType.Hero.copy(fontSize = 44.sp, lineHeight = 46.sp, color = c.hero).glowing(c),
         )
@@ -446,6 +446,7 @@ private fun PdfTools(sway: () -> Float) {
 @Composable
 private fun Modifier.frost(shape: androidx.compose.ui.graphics.Shape): Modifier {
     val c = clear
+    if (c.clean) return clip(shape).background(c.solidPanel)
     return clip(shape)
         .background(if (c.dark) Color.White.copy(alpha = 0.10f) else Color.White.copy(alpha = 0.55f))
         .border(1.dp, Brush.verticalGradient(listOf(Color.White.copy(alpha = if (c.dark) 0.25f else 0.85f), Color.White.copy(alpha = 0.1f))), shape)

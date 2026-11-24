@@ -1683,4 +1683,9 @@
     <string name="settings_your_name">Your name</string>
     <string name="settings_your_name_hint">Shown above Today\'s greeting</string>
     <string name="thoughts_audios">Audios</string>
+    <string name="settings_app_appearance">App appearance</string>
+    <string name="app_style_glass">Liquid Glass</string>
+    <string name="app_style_clean">Clean</string>
+    <string name="app_style_glass_detail">Default · Translucent surfaces</string>
+    <string name="app_style_clean_detail">Solid surfaces</string>
 </resources>

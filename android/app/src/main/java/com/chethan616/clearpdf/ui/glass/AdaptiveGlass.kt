@@ -133,7 +133,7 @@ class GlassLuminance internal constructor(initial: Float, internal val layer: Gr
  */
 @Composable
 fun rememberGlassLuminance(enabled: Boolean = GlassSettings.adaptive): GlassLuminance? {
-    if (!enabled) return null
+    if (!enabled || clear.clean) return null
     val layer = rememberGraphicsLayer()
     val dark = clear.dark
     // the first guess: what the screen as a whole looks like now (the window's sampler, running

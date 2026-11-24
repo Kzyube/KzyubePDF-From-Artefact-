@@ -151,7 +151,7 @@ fun MorphButtonSurface(
     }
     val glyph: @Composable () -> Unit = icon ?: MorphAnchors.glyphAt(anchor) ?: {}
     // Android 13+: the liquid version (the glass shaders it needs); before that the plain expansion
-    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
+    if (!com.chethan616.clearpdf.ui.theme.clear.clean && android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
         LiquidMorphSurface(anchor, open, onDismiss, gone, menuWidth, maxHeight, glyph, ghost, body)
     } else {
         RectMorphSurface(anchor, open, onDismiss, gone, menuWidth, maxHeight, glyph, ghost, body)
