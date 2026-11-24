@@ -1,6 +1,6 @@
-# Artefact design rules
+# kyube. design rules
 
-This is how Artefact looks, moves and feels, and the rules a change has to follow to fit in. If a
+This is how kyube. looks, moves and feels, and the rules a change has to follow to fit in. If a
 screen you are building needs something this file does not cover, copy the closest existing screen
 and ask in the pull request.
 

@@ -1,4 +1,4 @@
-O Artefact junta os seus PDF, notas, listas de tarefas, fotos e notas de voz numa secretária bonita. É gratuito e de código aberto, sem anúncios nem contas, e nada sai do seu telemóvel.
+O kyube. junta os seus PDF, notas, listas de tarefas, fotos e notas de voz numa secretária bonita. É gratuito e de código aberto, sem anúncios nem contas, e nada sai do seu telemóvel.
 
 Uma secretária para tudo
 * PDF, notas, listas, fotos e notas de voz lado a lado, como cartões
@@ -10,6 +10,6 @@ Ferramentas de PDF a sério
 * Exporte para Word, Excel, PowerPoint ou imagens; digitalize papel e reconheça o texto
 
 Pré-visualização rápida
-* «Abrir com o Artefact» numa conversa ou num gestor de ficheiros mostra o PDF num cartão flutuante por cima dessa app.
+* «Abrir com o kyube.» numa conversa ou num gestor de ficheiros mostra o PDF num cartão flutuante por cima dessa app.
 
-O Artefact é a nova versão do ClearPDF. Não está associado à Adobe; Acrobat é uma marca da Adobe Inc.
+Não está associado à Adobe; Acrobat é uma marca da Adobe Inc.

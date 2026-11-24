@@ -100,7 +100,7 @@ private const val CardHeight = 0.84f
  * Quick Preview's window content: a dim (and on newer phones a blur) over the app that opened the
  * file, and a card rising from the bottom on the eased curve. The card is as plain as it can be:
  * the pages, the name over them with More and Close, and one Open button. Drag the header down to
- * close, or up to open the file in Artefact. Floating glass (the More menu) lives inside the card's
+ * close, or up to open the file in kyube. Floating glass (the More menu) lives inside the card's
  * own glass layer, so it refracts the pages.
  */
 @Composable

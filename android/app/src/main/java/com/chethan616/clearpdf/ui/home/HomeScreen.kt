@@ -169,7 +169,7 @@ fun deskItems(filter: DeskFilter, notes: List<Note>, recents: List<FileRow>): Li
 val DeskDockClearance = 128.dp
 
 /**
- * The desk (the home screen): the Artefact mark and a menu, a big title that changes with the
+ * The desk (the home screen): the kyube. mark and a menu, a big title that changes with the
  * chosen chip, the chips, then every note, list, voice memo and document as a bento of pastel
  * cards. The create capsule floats over it (see [CreateDock]).
  */
@@ -329,9 +329,9 @@ private fun DeskHeader(vm: AppViewModel) {
     var anchor by remember { mutableStateOf(Rect.Zero) }
     Row(Modifier.fillMaxWidth().padding(start = 6.dp, top = 14.dp, end = 4.dp), verticalAlignment = Alignment.CenterVertically) {
         Image(
-            painterResource(R.drawable.artefact_mark), stringResource(R.string.app_name),
+            painterResource(R.drawable.kyube_wordmark), stringResource(R.string.app_name),
             colorFilter = ColorFilter.tint(c.hero),
-            modifier = Modifier.height(50.dp).width(56.dp),
+            modifier = Modifier.height(50.dp).width(134.dp),
         )
         Spacer(Modifier.weight(1f))
         HeaderGlassButton(

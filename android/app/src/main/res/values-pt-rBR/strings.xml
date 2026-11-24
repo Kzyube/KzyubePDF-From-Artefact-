@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="settings_language">Idioma do app</string>
-    <string name="settings_language_body">Escolha o idioma do Artefact.</string>
+    <string name="settings_language_body">Escolha o idioma do kyube.</string>
     <string name="settings_language_system">Idioma do sistema (%1$s)</string>
     <string name="settings_open_in_night_mode">Sempre abrir PDFs e documentos no modo noturno</string>
     <string name="settings_open_in_night_mode_body">Abrir cada PDF e documento com o modo noturno ativado.</string>
-    <string name="open_with">Abrir no Artefact</string>
+    <string name="open_with">Abrir no kyube.</string>
     <string name="common_ok">OK</string>
     <string name="common_cancel">Cancelar</string>
     <string name="common_done">Concluído</string>
@@ -64,7 +64,7 @@
     <string name="home_no_recent_title">Nenhum arquivo recente</string>
     <string name="home_no_recent_body">Os arquivos que você abrir aparecerão aqui.</string>
     <string name="home_device_files_title">Arquivos no seu dispositivo</string>
-    <string name="home_device_files_body_long">Escolha pastas para listar PDFs, como Documentos ou uma pasta dentro de Downloads (o Android não permite que apps listem toda a pasta Downloads). O Artefact só vê as pastas escolhidas, e os arquivos abertos de qualquer lugar ficam em Recentes.</string>
+    <string name="home_device_files_body_long">Escolha pastas para listar PDFs, como Documentos ou uma pasta dentro de Downloads (o Android não permite que apps listem toda a pasta Downloads). O kyube. só vê as pastas escolhidas, e os arquivos abertos de qualquer lugar ficam em Recentes.</string>
     <string name="home_no_pdfs_title">Nenhum PDF nas suas pastas</string>
     <string name="home_no_pdfs_body">Os PDFs nas pastas adicionadas aparecerão aqui.</string>
     <string name="home_add_folder">Adicionar uma pasta</string>
@@ -126,7 +126,7 @@
     <string name="home_no_results">Nenhum resultado</string>
     <string name="home_no_results_body">Confira a ortografia ou tente um nome mais curto.</string>
     <string name="home_report_problem">Relatar um problema ou pedir um recurso</string>
-    <string name="home_leaving_title">Saindo do Artefact</string>
+    <string name="home_leaving_title">Saindo do kyube.</string>
     <string name="home_continue">Continuar</string>
     <string name="home_leaving_body">Isso abrirá uma página da Web no seu navegador.</string>
     <string name="home_offer_suggestions">Sugerir palavras já usadas ao preencher formulários</string>
@@ -292,7 +292,7 @@
     <string name="voice_play_audio">Reproduzir áudio</string>
     <string name="voice_comment_kind">Comentário de voz</string>
     <string name="voice_mic_title">Usar o microfone?</string>
-    <string name="voice_mic_rationale">O Artefact precisa do microfone para gravar comentários de voz. Você pode permitir o acesso nas configurações do app.</string>
+    <string name="voice_mic_rationale">O kyube. precisa do microfone para gravar comentários de voz. Você pode permitir o acesso nas configurações do app.</string>
     <string name="voice_open_settings">Abrir configurações</string>
     <string name="voice_not_now">Agora não</string>
     <string name="pages_title">Páginas</string>
@@ -342,7 +342,7 @@
     <string name="sign_remove_id_description">Remover a ID digital de %1$s</string>
     <string name="sign_remove_id_title">Remover ID digital?</string>
     <string name="sign_remove">Remover</string>
-    <string name="sign_remove_id_message">A ID digital de %1$s será removida do Artefact. Os documentos já assinados com ela manterão as assinaturas.</string>
+    <string name="sign_remove_id_message">A ID digital de %1$s será removida do kyube. Os documentos já assinados com ela manterão as assinaturas.</string>
     <string name="sign_add">Adicionar</string>
     <string name="sign_id_password_prompt">Digite a senha que protege %1$s.</string>
     <string name="sign_create_about">Uma ID digital criada aqui é autoassinada: um documento assinado com ela mostra qualquer alteração feita depois da assinatura, mas ninguém mais confirma que é você. Para isso, use o arquivo de ID fornecido por uma organização ou autoridade certificadora.</string>
@@ -355,7 +355,7 @@
     <string name="sign_password_again">Digite a senha novamente</string>
     <string name="sign_password_short">A senha precisa ter pelo menos 8 caracteres.</string>
     <string name="sign_password_mismatch">As senhas não correspondem.</string>
-    <string name="sign_password_note">O Artefact não guarda nem recupera a senha: você precisa digitá-la sempre que assinar.</string>
+    <string name="sign_password_note">O kyube. não guarda nem recupera a senha: você precisa digitá-la sempre que assinar.</string>
     <string name="sign_add_your_signature">Adicionar sua assinatura</string>
     <string name="sign_signatures">Assinaturas</string>
     <string name="sign_none">Este documento não tem assinaturas.</string>
@@ -596,10 +596,10 @@
     <string name="forms_reset">Redefinir</string>
     <string name="forms_previous_field">Campo anterior</string>
     <string name="forms_next_field">Próximo campo</string>
-    <string name="msg_engine_not_started">Não foi possível iniciar o Artefact.</string>
+    <string name="msg_engine_not_started">Não foi possível iniciar o kyube.</string>
     <string name="msg_file_moved">Este arquivo foi movido ou excluído.</string>
-    <string name="msg_opened_own_copy">Cópia do Artefact aberta. Para alterar o original, abra-o novamente no app em que ele está.</string>
-    <string name="msg_file_access_lost">O Artefact não consegue mais abrir este arquivo. Abra-o novamente no app em que ele está ou use Abrir arquivo.</string>
+    <string name="msg_opened_own_copy">Cópia do kyube. aberta. Para alterar o original, abra-o novamente no app em que ele está.</string>
+    <string name="msg_file_access_lost">O kyube. não consegue mais abrir este arquivo. Abra-o novamente no app em que ele está ou use Abrir arquivo.</string>
     <string name="msg_undone">%1$s desfeito</string>
     <string name="msg_redone">%1$s refeito</string>
     <string name="msg_tool_blocked_security">Esta ferramenta não está disponível devido às configurações de segurança do documento.</string>
@@ -634,7 +634,7 @@
     <string name="msg_sign_read_only">Este documento não pode ser alterado nem assinado.</string>
     <string name="msg_id_cannot_sign">Esta ID digital não pode assinar documentos. %1$s</string>
     <string name="msg_id_added">ID digital de %1$s adicionada</string>
-    <string name="msg_id_unusable">O Artefact não pode usar este arquivo como ID digital: %1$s</string>
+    <string name="msg_id_unusable">O kyube. não pode usar este arquivo como ID digital: %1$s</string>
     <string name="msg_busy_creating_id">Criando sua ID digital…</string>
     <string name="msg_id_created">ID digital criada</string>
     <string name="msg_busy_signing">Assinando…</string>
@@ -657,7 +657,7 @@
     <string name="msg_picture_unreadable">Não foi possível ler a imagem.</string>
     <string name="msg_gif_not_supported">Não é possível adicionar imagens GIF.</string>
     <string name="msg_form_cleared">Formulário limpo</string>
-    <string name="msg_button_submit">Este botão enviaria o formulário pela internet, o que o Artefact não faz.</string>
+    <string name="msg_button_submit">Este botão enviaria o formulário pela internet, o que o kyube. não faz.</string>
     <string name="msg_suggestions_cleared">Sugestões limpas</string>
     <string name="msg_that_file_unreadable">Não foi possível ler esse arquivo.</string>
     <string name="msg_named_file_unreadable">Não foi possível ler %1$s.</string>
@@ -672,8 +672,8 @@
     <string name="msg_busy_exporting_images">Exportando imagens…</string>
     <string name="msg_busy_exporting_page">Exportando a página %1$d de %2$d…</string>
     <plurals name="msg_images_saved">
-        <item quantity="one">%1$d imagem salva em Pictures/Artefact</item>
-        <item quantity="other">%1$d imagens salvas em Pictures/Artefact</item>
+        <item quantity="one">%1$d imagem salva em Pictures/kyube</item>
+        <item quantity="other">%1$d imagens salvas em Pictures/kyube</item>
     </plurals>
     <string name="msg_busy_creating_pdf">Criando PDF…</string>
     <plurals name="msg_create_first_files">
@@ -712,7 +712,7 @@
     <string name="service_action_back">Voltar 15 segundos</string>
     <string name="service_action_forward">Avançar 15 segundos</string>
     <string name="service_action_stop">Parar</string>
-    <string name="home_legal_notice">O Artefact é construído sobre o motor Rust do PdfCraft, da storytold, e sobre o PdfCraft para Android, da equipe ArtCraft. MIT OR Apache-2.0. O Artefact não é afiliado à Adobe; Acrobat é uma marca da Adobe Inc.</string>
+    <string name="home_legal_notice">O kyube. é construído sobre o motor Rust do PdfCraft, da storytold, e sobre o PdfCraft para Android, da equipe ArtCraft. MIT OR Apache-2.0. O kyube. não é afiliado à Adobe; Acrobat é uma marca da Adobe Inc.</string>
     <string name="sign_read_only_document">Este documento não pode ser alterado, então não pode ser assinado.</string>
     <string name="desk_page_of">Página %1$d de %2$d</string>
     <string name="desk_photos_to_pdf">Fotos para PDF</string>
@@ -749,14 +749,14 @@
     <string name="settings_forms">Formulários</string>
     <string name="settings_about">Sobre</string>
     <string name="settings_credits_title">Feito com amigos</string>
-    <string name="settings_credits_body">O Artefact roda no motor Rust do PdfCraft, da storytold, e no PdfCraft para Android, da equipe ArtCraft. O vidro vem da biblioteca backdrop do Kyant0.</string>
+    <string name="settings_credits_body">O kyube. roda no motor Rust do PdfCraft, da storytold, e no PdfCraft para Android, da equipe ArtCraft. O vidro vem da biblioteca backdrop do Kyant0.</string>
     <string name="desk_filter_all">Tudo</string>
     <string name="desk_filter_notes">Notas</string>
     <string name="desk_filter_todo">Tarefas</string>
     <string name="desk_filter_pdfs">PDFs</string>
     <string name="desk_filter_images">Imagens</string>
     <string name="desk_filter_audio">Áudio</string>
-    <string name="desk_title_all">Seus artefatos</string>
+    <string name="desk_title_all">Seu espaço de trabalho</string>
     <string name="desk_title_notes">Suas notas</string>
     <string name="desk_title_todo">Listas de tarefas</string>
     <string name="desk_title_pdfs">Seus PDFs</string>
@@ -832,15 +832,15 @@
     <string name="welcome_promise_eyebrow">Nossa promessa</string>
     <string name="welcome_promise_title">Seu, e</string>
     <string name="welcome_promise_accent">só seu.</string>
-    <string name="welcome_promise_body">O Artefact é gratuito e de código aberto, para todo mundo.</string>
+    <string name="welcome_promise_body">O kyube. é gratuito e de código aberto, para todo mundo.</string>
     <string name="welcome_promise_1">Sem anúncios, nunca</string>
     <string name="welcome_promise_2">Nenhuma conta para criar</string>
     <string name="welcome_promise_3">Seus arquivos nunca saem do seu celular</string>
     <string name="settings_show_welcome">Mostrar as boas-vindas de novo</string>
     <string name="preview_title">Visualização rápida</string>
     <string name="preview_close">Fechar</string>
-    <string name="preview_expand">Abrir no Artefact</string>
-    <string name="preview_open_in_app">Abrir no Artefact</string>
+    <string name="preview_expand">Abrir no kyube.</string>
+    <string name="preview_open_in_app">Abrir no kyube.</string>
     <string name="preview_open">Abrir</string>
     <string name="preview_save_downloads">Salvar em Downloads</string>
     <string name="preview_saved_downloads">Salvo em Downloads</string>
@@ -948,7 +948,7 @@
     <string name="root_licence_wordcraft_terms">MIT OU Apache-2.0, por storytold e colaboradores</string>
     <string name="viewer_translate">Traduzir</string>
     <string name="sheet_open_link">Abrir link</string>
-    <string name="msg_link_not_followed">Este link leva a um arquivo que o Artefact não consegue abrir daqui</string>
+    <string name="msg_link_not_followed">Este link leva a um arquivo que o kyube. não consegue abrir daqui</string>
     <string name="read_aloud_stop_reading">Parar leitura</string>
     <string name="read_aloud_system_default">Padrão do sistema (%1$s)</string>
     <string name="read_aloud_language_selected">Selecionado</string>
@@ -1101,7 +1101,7 @@
     <string name="gm_curve_linear">Linear</string>
     <string name="gm_reset">Redefinir padrões</string>
     <string name="licences_row">Feito com código aberto</string>
-    <string name="licences_intro">O Artefact se apoia nestas obras de código aberto. Toque em uma para ver a licença; a seta abre o código-fonte.</string>
+    <string name="licences_intro">O kyube. se apoia nestas obras de código aberto. Toque em uma para ver a licença; a seta abre o código-fonte.</string>
     <string name="licences_engines">Mecanismos de documentos</string>
     <string name="licences_interface">Interface</string>
     <string name="licences_type">Fontes</string>
@@ -1116,7 +1116,7 @@
     <string name="licences_role_sheets">As planilhas e suas fórmulas</string>
     <string name="licences_role_photos">Revela e edita suas imagens</string>
     <string name="licences_role_ocr">Reconhece texto em digitalizações</string>
-    <string name="licences_role_app">O app Android de onde o Artefact nasceu</string>
+    <string name="licences_role_app">O app Android de onde o kyube. nasceu</string>
     <string name="licences_role_glass">O vidro líquido</string>
     <string name="licences_role_tracker">O achatar e esticar dos controles de vidro</string>
     <string name="licences_role_toolkit">O kit da interface</string>

@@ -92,8 +92,8 @@ import com.chethan616.clearpdf.ui.glass.RoundedRectangle
 import com.chethan616.clearpdf.ui.utils.AppLocale
 import java.util.Locale
 
-/** Artefact's repository: help, issues and source. */
-const val CLEARPDF_REPO = "https://github.com/Chethan616/ClearPDF"
+/** the app's repository: help, issues and source. */
+const val PROJECT_REPO = "https://github.com/Kzyube/KzyubePDF-From-Artefact-"
 
 /** Settings, and its Licences page. */
 @Composable
@@ -201,8 +201,8 @@ private fun SettingsRoot(vm: AppViewModel, openLicences: () -> Unit, openGlass: 
         item(key = "aboutpanel") {
             Panel {
                 SettingRow(LucideIcons.Compass, Candy.Sky, stringResource(R.string.settings_show_welcome), { vm.showWelcomeAgain() }, first = true)
-                SettingRow(LucideIcons.MessageSquare, Candy.Tomato, stringResource(R.string.home_report_problem), { leaving = "$CLEARPDF_REPO/issues" }, chevron = true)
-                SettingRow(LucideIcons.CodeXml, Candy.Grape, stringResource(R.string.home_source_code), { uri.openUri(CLEARPDF_REPO) }, chevron = true)
+                SettingRow(LucideIcons.MessageSquare, Candy.Tomato, stringResource(R.string.home_report_problem), { leaving = "$PROJECT_REPO/issues" }, chevron = true)
+                SettingRow(LucideIcons.CodeXml, Candy.Grape, stringResource(R.string.home_source_code), { uri.openUri(PROJECT_REPO) }, chevron = true)
                 SettingRow(LucideIcons.ScrollText, Candy.Mint, stringResource(R.string.licences_row), openLicences, chevron = true)
             }
         }
@@ -233,7 +233,7 @@ private fun SettingsRoot(vm: AppViewModel, openLicences: () -> Unit, openGlass: 
     }
 }
 
-/** Choose the language used throughout Artefact. */
+/** Choose the language used throughout kyube. */
 @Composable
 private fun AppLanguagePage(onBack: () -> Unit) {
     val context = LocalContext.current
@@ -364,7 +364,7 @@ private fun AppFooter(vm: AppViewModel) {
             .pointerInput(version) { detectTapGestures(onLongPress = { clipboard.setText(AnnotatedString(version)); vm.tell(copied) }) },
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Image(painterResource(R.drawable.artefact_logo), null, Modifier.size(44.dp))
+        Image(painterResource(R.drawable.kyube_mark), null, colorFilter = androidx.compose.ui.graphics.ColorFilter.tint(c.ink), modifier = Modifier.size(44.dp))
         Spacer(Modifier.height(8.dp))
         Text(stringResource(R.string.app_name), style = ClearType.BodyStrong, color = c.ink)
         Text(version, style = ClearType.Caption, color = c.inkSoft)
@@ -478,7 +478,7 @@ private fun ThemePicker(current: ThemeChoice, onPick: (ThemeChoice) -> Unit) {
 }
 
 /**
- * The wallpaper: Aurora (Artefact's own), Liquid (the old ClearPDF's) and a picture from the gallery,
+ * The wallpaper: Aurora (the app's own), Liquid (the old ClearPDF's) and a picture from the gallery,
  * each a thumbnail, the chosen one ringed and ticked like the theme's. Custom picks a new picture
  * every time it is tapped.
  */
@@ -628,7 +628,7 @@ internal fun ToggleRow(icon: ImageVector, accent: Color, label: String, body: St
 }
 
 /**
- * One open-source work Artefact is built from: its name, what it does in the app, its licence and
+ * One open-source work kyube. is built from: its name, what it does in the app, its licence and
  * authors, where it lives, and the licence text the app carries for it (in `assets/licences`), if any.
  */
 private class Credit(val name: String, val role: String, val terms: String, val url: String, val text: String? = null)
@@ -637,7 +637,7 @@ private class Credit(val name: String, val role: String, val terms: String, val 
 private class CreditGroup(val title: Int, val credits: List<Credit>)
 
 /**
- * Open-source licences: what Artefact is built from, in groups (the document engines first), each
+ * Open-source licences: what kyube. is built from, in groups (the document engines first), each
  * entry its role, licence and authors; a tap opens its licence text, the arrow its source.
  */
 @Composable

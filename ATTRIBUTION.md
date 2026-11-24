@@ -2,7 +2,7 @@
 
 <!-- Human-readable companion to ATTRIBUTION.toml; keep both in sync. -->
 
-Every asset Artefact includes, bundles or uses to build its published material, with its author, source and licence. The policy is in [docs/licensing-policy.md](docs/licensing-policy.md). The machine-readable list, with the SHA-256 of every asset but the translation catalogs, is [ATTRIBUTION.toml](ATTRIBUTION.toml). Licence texts are kept beside the assets and summarised in [NOTICE](NOTICE).
+Every asset kyube. includes, bundles or uses to build its published material, with its author, source and licence. The policy is in [docs/licensing-policy.md](docs/licensing-policy.md). The machine-readable list, with the SHA-256 of every asset but the translation catalogs, is [ATTRIBUTION.toml](ATTRIBUTION.toml). Licence texts are kept beside the assets and summarised in [NOTICE](NOTICE).
 
 ## In this repository (265)
 

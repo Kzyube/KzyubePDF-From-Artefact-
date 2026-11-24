@@ -28,7 +28,7 @@ Plan and status: PLAN.md "Office documents". How the Word bridge works:
 
 - **Engine**: storytold/wordcraft pinned at `729cd0a` (git deps). Two crates vendored with patches
   (`engine/vendor/README.md`, section WordCraft): `wordcraft-engine` (font store behind `font-store`,
-  which Artefact leaves off: no ureq/rustls/ring; check with
+  which kyube. leaves off: no ureq/rustls/ring; check with
   `cargo tree -p artefact-mobile --target aarch64-linux-android -e normal`) and `wordcraft-fonts`
   (`/system/fonts` on Android; its bundled faces `include_bytes!` from `engine/assets/fonts`, so
   Source Sans 3 / Source Serif 4 live there). `[patch.crates-io] krilla` = craft-libs `c5a1cbf`
@@ -239,7 +239,7 @@ The parts a later session needs to know:
   ScreenHeader's Back waits 150 ms so its press plays before the screen goes. The logo no longer spins.
 - `app/src/main/baseline-prof.txt` AOT-compiles all app + backdrop code: a sideloaded release had been running
   JIT-only while the fast build was force-compiled with `cmd package compile`, so "fast beat release".
-- Desk shelf titles use six faces (`ClearType.DeskAll/Notes/Todo/Pdfs/Images/Audio`): "Your Artefacts" is a
+- Desk shelf titles use six faces (`ClearType.DeskAll/Notes/Todo/Pdfs/Images/Audio`): "Your workspace" is a
   clean bold Bricolage Grotesque (the wonky Fraunces looked bad there); Notes is Fraunces upright (`wonk` 0).
   Both variable fonts are OFL, credited in Settings and `assets/licences`.
 - 2026-11-06 passes 1 to 4 (Quick Preview, thought of the day, glass chips, springs, dark theme,
@@ -256,7 +256,7 @@ content clipped inside its own moving layer) with a radius concentric with the s
 ## NEXT: port the old ClearPDF xlsx viewer (owner's request, 2026-11-07)
 
 The owner wants the spreadsheet viewer of `D:\ClearPDF-latest` ("goated"): copy its viewer, keep its
-editor's behaviour but restyle its editing controls to Artefact's glass UI. Files there
+editor's behaviour but restyle its editing controls to the app's glass UI. Files there
 (`app/src/main/java/com/chethan616/clearpdf/`): `ui/screen/SpreadsheetGrid.kt` (617 lines: grid,
 `GridSelection`, `GridColors`, row drawing), `ui/screen/SpreadsheetScrolling.kt` (row scrubber,
 stacking fling), `ui/screen/SpreadsheetViewerScreen.kt` (1244: content, `FormulaBar`, `SheetTabs`,
@@ -310,7 +310,7 @@ still sees a flash on the Files/Pdf collection cards (a route change, not a docu
 
 ## Next up
 
-See PLAN.md "Office documents" and "Next". Immediate: when Artefact is in front on the phone,
+See PLAN.md "Office documents" and "Next". Immediate: when kyube. is in front on the phone,
 check on the phone (all built, none seen there yet; the phone dropped off adb): Word, slides and
 sheets (samples in Download: Artefact-Word-Sample.docx, Artefact-Slides-Sample.pptx,
 Artefact-Sheet-Sample.xlsx), the selection lens and glass menu, the photo editor (tap a note's

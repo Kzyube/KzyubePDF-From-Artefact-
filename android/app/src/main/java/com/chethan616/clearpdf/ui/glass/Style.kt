@@ -55,7 +55,7 @@ data class GlassStyle(
 }
 
 /**
- * What the app stands on: Artefact's soft aurora (the default, as the old ClearPDF started on its
+ * What the app stands on: the app's soft aurora (the default, as the old ClearPDF started on its
  * own plain background), the old ClearPDF's liquid blobs, or a picture of the user's own.
  */
 enum class Wallpaper { Aurora, Liquid, Custom }

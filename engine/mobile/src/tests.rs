@@ -857,7 +857,7 @@ fn dump_sheet_sample() {
 
 #[test]
 fn a_deck_font_missing_on_a_phone_gets_a_stand_in_of_its_kind() {
-    // a database that sees no installed fonts, as on a phone, given the faces Artefact bundles
+    // a database that sees no installed fonts, as on a phone, given the faces kyube. bundles
     let db = deckcraft_fonts::FontDb::with_font_dirs(Vec::new());
     db.set_system_fallback(false);
     for bytes in wordcraft_fonts::bundled() {
@@ -969,7 +969,7 @@ fn links_are_found_in_every_kind_of_document() {
 }
 
 /// Charts and pictures come with a workbook: an .xlsx's from GridCraft, an .xls's (which GridCraft
-/// leaves out) from Artefact's own reader. Both files hold a column, a pie and a line chart of the
+/// leaves out) from the app's own reader. Both files hold a column, a pie and a line chart of the
 /// same cells, and one picture (made with LibreOffice from the .xlsx).
 #[test]
 fn charts_and_pictures_of_xlsx_and_xls_are_shown() {

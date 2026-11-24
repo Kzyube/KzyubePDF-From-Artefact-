@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- A home screen card: the picture of the desk's card, a tap target over all of it, and tap
-     targets that the list widget lays over each item (see widget/ArtefactWidgets.kt). -->
+     targets that the list widget lays over each item (see widget/KyubeWidgets.kt). -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/root"
     android:layout_width="match_parent"

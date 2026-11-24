@@ -35,7 +35,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
-import com.chethan616.clearpdf.ArtefactApplication
+import com.chethan616.clearpdf.KyubeApplication
 import com.chethan616.clearpdf.R
 import com.chethan616.clearpdf.plural
 import com.chethan616.clearpdf.text
@@ -70,7 +70,7 @@ private const val SCAN_STATE = "scan"
  * what must outlive Android closing the app in the background (the scan in progress).
  */
 class AppViewModel(app: Application, private val saved: SavedStateHandle) : AndroidViewModel(app) {
-    private val application = app as ArtefactApplication
+    private val application = app as KyubeApplication
     val files = DocumentFiles(app)
     val recents = RecentFiles(File(app.filesDir, "recent.json"))
 
@@ -1200,7 +1200,7 @@ class AppViewModel(app: Application, private val saved: SavedStateHandle) : Andr
     /** Copy the selected text (when the document allows copying). */
     /**
      * The selected text handed to a translator the phone has (Google Translate, DeepL, a
-     * dictionary…): the system's own list of apps that take text, so Artefact itself still asks
+     * dictionary…): the system's own list of apps that take text, so kyube. itself still asks
      * for no network access.
      */
     fun translateSelection(doc: OpenDocument) {
@@ -2182,7 +2182,7 @@ class AppViewModel(app: Application, private val saved: SavedStateHandle) : Andr
      */
     private fun scriptOutput(doc: OpenDocument, r: JSONObject) {
         // a script that failed: kept out of sight, as the reference keeps it, but in the log
-        r.optString("error").takeIf { it.isNotEmpty() && it != "null" }?.let { android.util.Log.w("Artefact", "form script: $it") }
+        r.optString("error").takeIf { it.isNotEmpty() && it != "null" }?.let { android.util.Log.w("kyube.", "form script: $it") }
         r.optJSONArray("alerts")?.let { a -> for (i in 0 until a.length()) showScriptAlert(a.optString(i)) }
         val requests = r.optJSONArray("requests") ?: return
         for (i in 0 until requests.length()) {
@@ -2501,7 +2501,7 @@ class AppViewModel(app: Application, private val saved: SavedStateHandle) : Andr
         deliver(out, "${doc.title}.$ext", mime)
     }
 
-    /** Every page of [doc] as an image (200 dpi) in Pictures/ClearPDF. */
+    /** Every page of [doc] as an image (200 dpi) in Pictures/kyube. */
     /** Export to images: the format chosen, while its pages are being picked in the page grid. */
     var imageExport by mutableStateOf<String?>(null)
 
@@ -2517,7 +2517,7 @@ class AppViewModel(app: Application, private val saved: SavedStateHandle) : Andr
         doc.controller.pagesOpen = true
     }
 
-    /** Pictures of [pages] (0-based) at 200 dpi, saved to Pictures/ClearPDF or handed to the share sheet. */
+    /** Pictures of [pages] (0-based) at 200 dpi, saved to Pictures/kyube or handed to the share sheet. */
     fun writeImages(doc: OpenDocument, ext: String, pages: List<Int>, share: Boolean) = job(text(R.string.msg_busy_exporting_images)) { eng ->
         val mime = if (ext == "png") "image/png" else "image/jpeg"
         val made = mutableListOf<Pair<File, String>>()
@@ -3124,7 +3124,7 @@ class AppViewModel(app: Application, private val saved: SavedStateHandle) : Andr
         photoSaveCopy = false
         viewModelScope.launch {
             runCatching {
-                val name = "Artefact photo ${java.text.SimpleDateFormat("yyyy-MM-dd HH-mm-ss", java.util.Locale.ROOT).format(java.util.Date())}.jpg"
+                val name = "kyube. photo ${java.text.SimpleDateFormat("yyyy-MM-dd HH-mm-ss", java.util.Locale.ROOT).format(java.util.Date())}.jpg"
                 withContext(Dispatchers.IO) {
                     val copy = tempFile("jpg")
                     file.copyTo(copy, overwrite = true)

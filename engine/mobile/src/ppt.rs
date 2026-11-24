@@ -1,4 +1,4 @@
-//! PowerPoint 97-2003 presentations (.ppt), which DeckCraft doesn't read. Artefact reads the binary
+//! PowerPoint 97-2003 presentations (.ppt), which DeckCraft doesn't read. kyube. reads the binary
 //! file itself ([MS-PPT] records in the `PowerPoint Document` stream, [MS-ODRAW] drawings inside
 //! them) and sets what it finds in a DeckCraft presentation of the file's slide size, so a .ppt
 //! opens, draws, searches and exports like any deck:

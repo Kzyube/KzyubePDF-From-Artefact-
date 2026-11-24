@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  Artefact's text, in German. The English original is values/strings.xml.
+  the app's text, in German. The English original is values/strings.xml.
 -->
 <resources>
     <string name="settings_language">App-Sprache</string>
-    <string name="settings_language_body">Wähle die Sprache für Artefact.</string>
+    <string name="settings_language_body">Wähle die Sprache für kyube.</string>
     <string name="settings_language_system">Systemstandard (%1$s)</string>
     <string name="settings_open_in_night_mode">PDFs und Dokumente immer im Nachtmodus öffnen</string>
     <string name="settings_open_in_night_mode_body">PDFs und Dokumente standardmäßig im Nachtmodus öffnen.</string>
-    <string name="open_with">In Artefact öffnen</string>
+    <string name="open_with">In kyube. öffnen</string>
 
     <!-- Shared: buttons and words used on many screens -->
     <string name="common_ok">OK</string>
@@ -84,7 +84,7 @@
     <string name="home_no_recent_body">Dateien, die du öffnest, werden hier angezeigt.</string>
     <string name="home_device_files_title">Dateien auf deinem Gerät</string>
     <!-- On this device, before any folder is added: the longer explanation -->
-    <string name="home_device_files_body_long">Wähle Ordner aus, deren PDFs angezeigt werden sollen, z. B. „Dokumente“ oder einen Ordner im Ordner „Download“ (Android erlaubt Apps nicht, den gesamten Ordner „Download“ aufzulisten). Artefact sieht nur die Ordner, die du auswählst. Dateien, die du von einem beliebigen Ort öffnest, bleiben unter „Zuletzt verwendet“.</string>
+    <string name="home_device_files_body_long">Wähle Ordner aus, deren PDFs angezeigt werden sollen, z. B. „Dokumente“ oder einen Ordner im Ordner „Download“ (Android erlaubt Apps nicht, den gesamten Ordner „Download“ aufzulisten). kyube. sieht nur die Ordner, die du auswählst. Dateien, die du von einem beliebigen Ort öffnest, bleiben unter „Zuletzt verwendet“.</string>
     <string name="home_no_pdfs_title">Keine PDFs in deinen Ordnern</string>
     <string name="home_no_pdfs_body">PDFs in den hinzugefügten Ordnern werden hier angezeigt.</string>
     <string name="home_add_folder">Ordner hinzufügen</string>
@@ -179,7 +179,7 @@
 
     <!-- Settings -->
     <string name="home_report_problem">Problem melden oder Funktion vorschlagen</string>
-    <string name="home_leaving_title">Artefact verlassen</string>
+    <string name="home_leaving_title">kyube. verlassen</string>
     <string name="home_continue">Weiter</string>
     <string name="home_leaving_body">Dadurch wird eine Webseite in deinem Browser geöffnet.</string>
 
@@ -199,7 +199,7 @@
     <string name="home_search_count">Anzahl der Suchergebnisse anzeigen</string>
     <string name="home_search_count_body">Bei der Dokumentsuche wird angezeigt, welches Ergebnis du gerade ansiehst und wie viele es insgesamt gibt, z. B. 3 von 12.</string>
 
-    <!-- Settings: About Artefact -->
+    <!-- Settings: About kyube. -->
     <!-- %1$s is the app's version, %2$s the engine's version -->
     <string name="home_version">Version %1$s (Engine %2$s)</string>
     <string name="home_version_copied">Versionsnummer kopiert</string>
@@ -453,7 +453,7 @@
 
     <!-- Voice comments: the microphone was refused before -->
     <string name="voice_mic_title">Mikrofon verwenden?</string>
-    <string name="voice_mic_rationale">Artefact benötigt das Mikrofon, um Sprachkommentare aufzunehmen. Du kannst den Zugriff in den App-Einstellungen erlauben.</string>
+    <string name="voice_mic_rationale">kyube. benötigt das Mikrofon, um Sprachkommentare aufzunehmen. Du kannst den Zugriff in den App-Einstellungen erlauben.</string>
     <string name="voice_open_settings">Einstellungen öffnen</string>
     <string name="voice_not_now">Nicht jetzt</string>
 
@@ -537,7 +537,7 @@
     <string name="sign_remove_id_title">Digitale ID entfernen?</string>
     <string name="sign_remove">Entfernen</string>
     <!-- Translator note: %1$s is the person's name on the digital ID -->
-    <string name="sign_remove_id_message">Die digitale ID von %1$s wird aus Artefact entfernt. Dokumente, die bereits damit unterschrieben wurden, behalten ihre Unterschriften.</string>
+    <string name="sign_remove_id_message">Die digitale ID von %1$s wird aus kyube. entfernt. Dokumente, die bereits damit unterschrieben wurden, behalten ihre Unterschriften.</string>
 
     <!-- Digital signatures: the password of a digital ID file being added -->
     <string name="sign_add">Hinzufügen</string>
@@ -556,7 +556,7 @@
     <string name="sign_password_again">Passwort erneut eingeben</string>
     <string name="sign_password_short">Das Passwort muss mindestens 8 Zeichen lang sein.</string>
     <string name="sign_password_mismatch">Die Passwörter stimmen nicht überein.</string>
-    <string name="sign_password_note">Artefact speichert das Passwort nicht und kann es nicht wiederherstellen. Du musst es bei jeder Unterschrift erneut eingeben.</string>
+    <string name="sign_password_note">kyube. speichert das Passwort nicht und kann es nicht wiederherstellen. Du musst es bei jeder Unterschrift erneut eingeben.</string>
 
     <!-- Digital signatures: tapping an empty signature field -->
     <string name="sign_add_your_signature">Unterschrift hinzufügen</string>
@@ -929,11 +929,11 @@
     <!-- Messages: notices at the bottom of the screen, progress, errors -->
     <!-- ================================================================== -->
     <!-- Messages: opening documents -->
-    <string name="msg_engine_not_started">Artefact konnte nicht gestartet werden.</string>
+    <string name="msg_engine_not_started">kyube. konnte nicht gestartet werden.</string>
     <string name="msg_file_moved">Diese Datei wurde verschoben oder gelöscht.</string>
-    <string name="msg_opened_own_copy">Die Kopie von Artefact wurde geöffnet. Um das Original zu ändern, öffne es erneut in der App, in der es sich befindet.</string>
+    <string name="msg_opened_own_copy">Die Kopie von kyube. wurde geöffnet. Um das Original zu ändern, öffne es erneut in der App, in der es sich befindet.</string>
     <!-- "Open file" is the name of the button on Home that picks a file. -->
-    <string name="msg_file_access_lost">Artefact kann diese Datei nicht mehr öffnen. Öffne sie erneut in der App, in der sie sich befindet, oder über „Datei öffnen“.</string>
+    <string name="msg_file_access_lost">kyube. kann diese Datei nicht mehr öffnen. Öffne sie erneut in der App, in der sie sich befindet, oder über „Datei öffnen“.</string>
 
     <!-- Messages: undo and redo. %1$s is the name of the edit, as the engine gives it (for example "Add comment"). -->
     <string name="msg_undone">%1$s rückgängig gemacht</string>
@@ -1000,7 +1000,7 @@
     <!-- %1$s is the name of the person the digital ID belongs to. -->
     <string name="msg_id_added">Digitale ID von %1$s hinzugefügt</string>
     <!-- %1$s is the reason the file was refused. -->
-    <string name="msg_id_unusable">Artefact kann diese Datei nicht als digitale ID verwenden: %1$s</string>
+    <string name="msg_id_unusable">kyube. kann diese Datei nicht als digitale ID verwenden: %1$s</string>
     <string name="msg_busy_creating_id">Deine digitale ID wird erstellt …</string>
     <string name="msg_id_created">Digitale ID erstellt</string>
     <string name="msg_busy_signing">Wird unterschrieben …</string>
@@ -1032,7 +1032,7 @@
 
     <!-- Messages: forms -->
     <string name="msg_form_cleared">Formular geleert</string>
-    <string name="msg_button_submit">Diese Schaltfläche sendet das Formular online. Artefact führt diese Aktion nicht aus.</string>
+    <string name="msg_button_submit">Diese Schaltfläche sendet das Formular online. kyube. führt diese Aktion nicht aus.</string>
     <!-- Words remembered from form fields, offered while typing. -->
     <string name="msg_suggestions_cleared">Vorschläge gelöscht</string>
 
@@ -1053,10 +1053,10 @@
     <string name="msg_busy_exporting_images">Bilder werden exportiert …</string>
     <!-- %1$d is the page being exported, %2$d how many pages there are. -->
     <string name="msg_busy_exporting_page">Seite %1$d von %2$d wird exportiert …</string>
-    <!-- Pictures/Artefact is a folder on the phone: keep it as it is. -->
+    <!-- Pictures/kyube is a folder on the phone: keep it as it is. -->
     <plurals name="msg_images_saved">
-        <item quantity="one">%1$d Bild wurde in Pictures/Artefact gespeichert</item>
-        <item quantity="other">%1$d Bilder wurden in Pictures/Artefact gespeichert</item>
+        <item quantity="one">%1$d Bild wurde in Pictures/kyube gespeichert</item>
+        <item quantity="other">%1$d Bilder wurden in Pictures/kyube gespeichert</item>
     </plurals>
     <string name="msg_busy_creating_pdf">PDF wird erstellt …</string>
     <!-- Create PDF takes at most this many files at once. -->
@@ -1127,7 +1127,7 @@
     <string name="service_action_forward">15 Sekunden vor</string>
     <!-- Translator note: notification button that stops reading aloud -->
     <string name="service_action_stop">Stopp</string>
-    <string name="home_legal_notice">Artefact basiert auf der Rust-Engine von PdfCraft von storytold und auf PdfCraft für Android vom ArtCraft-Team. MIT OR Apache-2.0. Artefact steht in keiner Verbindung zu Adobe; Acrobat ist eine Marke von Adobe Inc.</string>
+    <string name="home_legal_notice">kyube. basiert auf der Rust-Engine von PdfCraft von storytold und auf PdfCraft für Android vom ArtCraft-Team. MIT OR Apache-2.0. kyube. steht in keiner Verbindung zu Adobe; Acrobat ist eine Marke von Adobe Inc.</string>
     <string name="sign_read_only_document">Dieses Dokument kann nicht geändert und daher nicht signiert werden.</string>
     <string name="desk_page_of">Seite %1$d von %2$d</string>
     <string name="desk_photos_to_pdf">Fotos zu PDF</string>
@@ -1164,14 +1164,14 @@
     <string name="settings_forms">Formulare</string>
     <string name="settings_about">Über</string>
     <string name="settings_credits_title">Mit Freunden gebaut</string>
-    <string name="settings_credits_body">Artefact läuft auf der Rust-Engine von PdfCraft von storytold und auf PdfCraft für Android vom ArtCraft-Team. Das Glas stammt aus Kyant0s Backdrop-Bibliothek.</string>
+    <string name="settings_credits_body">kyube. läuft auf der Rust-Engine von PdfCraft von storytold und auf PdfCraft für Android vom ArtCraft-Team. Das Glas stammt aus Kyant0s Backdrop-Bibliothek.</string>
     <string name="desk_filter_all">Alle</string>
     <string name="desk_filter_notes">Notizen</string>
     <string name="desk_filter_todo">To-do</string>
     <string name="desk_filter_pdfs">PDFs</string>
     <string name="desk_filter_images">Bilder</string>
     <string name="desk_filter_audio">Audio</string>
-    <string name="desk_title_all">Deine Artefakte</string>
+    <string name="desk_title_all">Dein Arbeitsbereich</string>
     <string name="desk_title_notes">Deine Notizen</string>
     <string name="desk_title_todo">To-do-Listen</string>
     <string name="desk_title_pdfs">Deine PDFs</string>
@@ -1247,15 +1247,15 @@
     <string name="welcome_promise_eyebrow">Unser Versprechen</string>
     <string name="welcome_promise_title">Deins, und</string>
     <string name="welcome_promise_accent">nur deins.</string>
-    <string name="welcome_promise_body">Artefact ist kostenlos und quelloffen, für alle.</string>
+    <string name="welcome_promise_body">kyube. ist kostenlos und quelloffen, für alle.</string>
     <string name="welcome_promise_1">Niemals Werbung</string>
     <string name="welcome_promise_2">Kein Konto nötig</string>
     <string name="welcome_promise_3">Deine Dateien verlassen nie dein Telefon</string>
     <string name="settings_show_welcome">Willkommen erneut zeigen</string>
     <string name="preview_title">Schnellansicht</string>
     <string name="preview_close">Schließen</string>
-    <string name="preview_expand">In Artefact öffnen</string>
-    <string name="preview_open_in_app">In Artefact öffnen</string>
+    <string name="preview_expand">In kyube. öffnen</string>
+    <string name="preview_open_in_app">In kyube. öffnen</string>
     <string name="preview_open">Öffnen</string>
     <string name="preview_save_downloads">In Downloads speichern</string>
     <string name="preview_saved_downloads">In Downloads gespeichert</string>
@@ -1363,7 +1363,7 @@
     <string name="root_licence_wordcraft_terms">MIT ODER Apache-2.0, von storytold und Mitwirkenden</string>
     <string name="viewer_translate">Übersetzen</string>
     <string name="sheet_open_link">Link öffnen</string>
-    <string name="msg_link_not_followed">Dieser Link führt zu einer Datei, die Artefact von hier aus nicht öffnen kann</string>
+    <string name="msg_link_not_followed">Dieser Link führt zu einer Datei, die kyube. von hier aus nicht öffnen kann</string>
     <string name="read_aloud_stop_reading">Vorlesen beenden</string>
     <string name="read_aloud_system_default">Systemstandard (%1$s)</string>
     <string name="read_aloud_language_selected">Ausgewählt</string>
@@ -1516,7 +1516,7 @@
     <string name="gm_curve_linear">Linear</string>
     <string name="gm_reset">Auf Standard zurücksetzen</string>
     <string name="licences_row">Mit Open Source gebaut</string>
-    <string name="licences_intro">Artefact steht auf diesen Open-Source-Werken. Tippe auf eines für seine Lizenz; der Pfeil öffnet seinen Quellcode.</string>
+    <string name="licences_intro">kyube. steht auf diesen Open-Source-Werken. Tippe auf eines für seine Lizenz; der Pfeil öffnet seinen Quellcode.</string>
     <string name="licences_engines">Dokument-Engines</string>
     <string name="licences_interface">Oberfläche</string>
     <string name="licences_type">Schriften</string>
@@ -1531,7 +1531,7 @@
     <string name="licences_role_sheets">Tabellen und ihre Formeln</string>
     <string name="licences_role_photos">Entwickelt und bearbeitet deine Bilder</string>
     <string name="licences_role_ocr">Erkennt Text in Scans</string>
-    <string name="licences_role_app">Die Android-App, aus der Artefact entstand</string>
+    <string name="licences_role_app">Die Android-App, aus der kyube. entstand</string>
     <string name="licences_role_glass">Das Flüssigglas</string>
     <string name="licences_role_tracker">Das Stauchen und Strecken der Glas-Regler</string>
     <string name="licences_role_toolkit">Das Oberflächen-Toolkit</string>

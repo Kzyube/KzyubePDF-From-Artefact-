@@ -1,4 +1,4 @@
-# Artefact code guide
+# kyube. code guide
 
 How the code is laid out and the rules it is written to. For how screens should look and move, see
 [DESIGN.md](DESIGN.md).

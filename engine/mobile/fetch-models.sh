@@ -36,7 +36,7 @@ fetch() {
 fetch "$licence_url" "$out/LICENCE.part.txt" "$licence_sha"
 
 {
-  echo "Artefact's text recognition (Scan & OCR) uses these models, unmodified."
+  echo "the app's text recognition (Scan & OCR) uses these models, unmodified."
   for entry in \
     "text-detection.rten|Ocrs text detection model|f15cfb56bd02c4bf478a20343986504a1f01e1665c2b3a0ad66340f054b1b5ca" \
     "text-recognition.rten|Ocrs text recognition model|e484866d4cce403175bd8d00b128feb08ab42e208de30e42cd9889d8f1735a6e"; do

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Files of Artefact's that another app may reach through its FileProvider: a document being
+<!-- Files of the app's that another app may reach through its FileProvider: a document being
      shared, printed or opened in another app, a photo the camera app takes for Scan, and one it
      takes for a note (written straight into the notes' media folder) -->
 <paths>

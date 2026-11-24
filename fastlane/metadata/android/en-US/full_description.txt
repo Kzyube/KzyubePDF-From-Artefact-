@@ -1,4 +1,4 @@
-Artefact puts your PDFs, notes, to-do lists, photos and voice notes on one beautiful desk. It is free and open source, has no ads and no accounts, and nothing ever leaves your phone.
+kyube. puts your PDFs, notes, to-do lists, photos and voice notes on one beautiful desk. It is free and open source, has no ads and no accounts, and nothing ever leaves your phone.
 
 One desk for everything
 * PDFs, notes, to-do lists, photos and voice notes side by side as cards
@@ -13,11 +13,11 @@ Real PDF tools
 * Export to Word, Excel, PowerPoint or images; scan paper and recognise its text
 
 Quick Preview
-* "Open with Artefact" from a chat or a file manager shows the PDF in a floating card over that app. Pull it up for the full viewer, close it to be right back where you were.
+* "Open with kyube." from a chat or a file manager shows the PDF in a floating card over that app. Pull it up for the full viewer, close it to be right back where you were.
 
 Notes and voice
 * Light Markdown notes with photos, to-do lists, voice notes recorded from the desk
 
 Liquid glass and expressive motion, in English, Arabic, German, Spanish, French, Italian, Portuguese and Russian.
 
-Artefact is the next version of ClearPDF. Artefact is not affiliated with or endorsed by Adobe. Acrobat is a trademark of Adobe Inc.
+kyube. is not affiliated with or endorsed by Adobe. Acrobat is a trademark of Adobe Inc.

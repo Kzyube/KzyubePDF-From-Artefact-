@@ -89,7 +89,7 @@ class PhotoFrameAndMapTest {
         assertEquals("Plan", many.root.text)
         assertEquals(listOf("A", "B"), many.root.children.map { it.text })
         assertNull(mindFromOpml("<opml><body></body></opml>"))
-        // what Artefact exports, it reads back the same
+        // what kyube. exports, it reads back the same
         val back = mindFromOpml(doc.opml())!!
         assertEquals(doc.outline(), back.outline())
         assertEquals(doc.root.text, back.root.text)

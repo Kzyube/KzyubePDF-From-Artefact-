@@ -4,7 +4,7 @@ version.workspace = true
 edition.workspace = true
 license.workspace = true
 publish = false
-description = "Artefact's engine on phones: a native library with Kotlin bindings (UniFFI); the Android app is in ../../android"
+description = "the app's engine on phones: a native library with Kotlin bindings (UniFFI); the Android app is in ../../android"
 
 [lib]
 name = "artefact"
@@ -27,7 +27,7 @@ deckcraft-model = { workspace = true }
 deckcraft-pptx = { workspace = true }
 deckcraft-render = { workspace = true }
 deckcraft-pdf = { workspace = true }
-# the faces Artefact bundles, given to the slides' font database (src/slides.rs)
+# the faces kyube. bundles, given to the slides' font database (src/slides.rs)
 deckcraft-fonts = { workspace = true }
 wordcraft-fonts = { workspace = true }
 # PowerPoint 97-2003 (src/ppt.rs): the compound file holding its record stream (already in the tree)

@@ -2,7 +2,7 @@
 
 ## Our commitment
 
-Artefact is a small, welcoming open-source project. We want every contributor to feel safe, respected, and able to participate regardless of experience, background, identity, or device.
+kyube. is a small, welcoming open-source project. We want every contributor to feel safe, respected, and able to participate regardless of experience, background, identity, or device.
 
 ## Expected behavior
 
@@ -10,7 +10,7 @@ Artefact is a small, welcoming open-source project. We want every contributor to
 - Assume good intent and ask questions before making judgments.
 - Share context when reporting bugs or proposing changes.
 - Give credit to other contributors and upstream projects.
-- Keep discussions focused on improving Artefact for users.
+- Keep discussions focused on improving kyube. for users.
 
 ## Unacceptable behavior
 
