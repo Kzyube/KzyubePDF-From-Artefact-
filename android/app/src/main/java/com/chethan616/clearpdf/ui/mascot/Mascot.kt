@@ -273,7 +273,7 @@ fun Mascot(
       // its own layer: the breathing and blinking redraw only this, not the card or page around it
       .graphicsLayer {}
       .then(tapModifier)
-      .semantics { contentDescription = label ?: "Artefact mascot, ${moodLabel(mood)}" },
+      .semantics { contentDescription = label ?: "kyube. mascot, ${moodLabel(mood)}" },
   ) {
     val unit = this.size.minDimension / 100f
     // paused (off screen) it reads no clock, so it is never redrawn, and keeps its last pose

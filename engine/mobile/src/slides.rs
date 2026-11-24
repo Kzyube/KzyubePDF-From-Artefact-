@@ -25,7 +25,7 @@ pub(crate) struct SlideDeck {
 /// Worker threads a slide renders on (effects that blur need some).
 const THREADS: u16 = 2;
 
-/// Gives the slides' font database the faces Artefact bundles (the Word engine's: Source Sans 3,
+/// Gives the slides' font database the faces kyube. bundles (the Word engine's: Source Sans 3,
 /// Source Serif 4, Inter, JetBrains Mono), once. A phone has no Calibri, Arial or Times New Roman,
 /// nor the desktop stand-ins DeckCraft looks for, so without these every run of text fell through
 /// to its last-resort face and a deck's fonts all looked replaced; with them each family gets a

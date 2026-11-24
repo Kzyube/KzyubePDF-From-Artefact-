@@ -1,6 +1,6 @@
-# Artefact: plan and roadmap
+# kyube.: plan and roadmap
 
-Artefact (formerly ClearPDF) is a free, open-source document app for Android: PDFs today, then Word,
+kyube. is a free, open-source document app for Android: PDFs today, then Word,
 PowerPoint, Excel, notes, pictures and voice, all on one engine. No ads, no accounts, nothing leaves
 the phone.
 
@@ -43,7 +43,7 @@ bot-avatars) for empty, waiting and error states only.
 - [x] V2 base: Rust engine + UniFFI bridge, glass UI kit, viewer, tools, signing, forms, OCR.
 - [x] Upstream PRs: hide bars on scroll (#9), double-tap-drag zoom (#14), live signature trust
       refresh (Android half of #22; its engine half is older than ours).
-- [x] Rename to Artefact (strings in every language, icons, splash, Pictures/Artefact folder).
+- [x] Rename to kyube. (strings in every language, icons, splash, Pictures/kyube folder).
 - [x] New launcher icon (adaptive + themed monochrome) and Play/F-Droid icon from `artefact.png`.
 - [x] Theme rebuild to the mocks (wallpaper, tones, type, chips).
 - [x] Desk (home): header mark + menu, title per chip, chips, bento of cards, + fan, mic recorder.
@@ -80,7 +80,7 @@ bot-avatars) for empty, waiting and error states only.
       longer freezes at its extremes (damping floor, capped layout overshoot), recorder X in dark ink,
       sheets rise/leave on better curves with staggered content, six distinct desk-title fonts.
 - [x] Bounce pass (2026-11-06): the + fan and sheets rise on a fixed-time bounce tween (`GlassMotion.bounce`)
-      instead of springs, so the glass goes quiet on a known frame; "Your Artefacts" in a clean bold grotesque.
+      instead of springs, so the glass goes quiet on a known frame; "Your workspace" in a clean bold grotesque.
 
 - [x] 3.0.0-beta.10 (2026-11-14): first beta and first non-pre-release "Latest" on GitHub, with the
       16:9 trailer attached; releases are betas (`-beta.N`) from here on.
@@ -98,7 +98,7 @@ bot-avatars) for empty, waiting and error states only.
       colour as the mocks, nothing to change.
 - [x] Signature validation badges drawn by the viewer (Acrobat-style tick), never in the file.
 - [x] Translations: ar, de, es, fr, it, pt-BR complete + **pt** and **ru**.
-- [x] Folder restructure, README/NOTICE/ATTRIBUTION/fastlane to Artefact (9 store languages).
+- [x] Folder restructure, README/NOTICE/ATTRIBUTION/fastlane to kyube. (9 store languages).
 - [ ] Release build, `master` branch on GitHub, "Building the version 2" issue + discussion.
       (2026-11-15: [x] the arm64 release APK builds and is signed with the Play upload key, 95 MB, from
       this branch; the issue/discussion text is drafted locally; [ ] nothing pushed or published.)
@@ -166,7 +166,7 @@ all three → editing, one format at a time, each built and run on the phone bef
       lists and filters; same reading-only viewer as Word. [x] seen on the phone 2026-11-14 (a 9-slide .pptx renders in the bundled stand-in fonts); [x] present mode
       (full-screen slides, tap/swipe to advance; transitions from `deckcraft-render::render_transition`).
       Password-protected decks are refused with a message (deckcraft can't decrypt). `.ppt` (97-2003)
-      opens through Artefact's own reader (`engine/mobile/src/ppt.rs`): slides' text only, [ ] pictures not checked on a real .ppt.
+      opens through the app's own reader (`engine/mobile/src/ppt.rs`): slides' text only, [ ] pictures not checked on a real .ppt.
 - [x] **Excel viewing** (gridcraft `6a8eb4f`, 2026-11-07, built and host-tested): `sheets.rs` opens
       .xlsx/.xlsb/.ods/.csv (recalculated on open) and serves tabs, axes, cell windows with looks,
       merges, find; `ui/sheets/SheetViewer.kt` draws the grid on a canvas (pan, pinch zoom, heading

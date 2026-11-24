@@ -685,7 +685,7 @@ fun DocumentInfoSheet(vm: AppViewModel, doc: OpenDocument) {
 }
 
 /** What made a file, as people know it: files the app made before it was renamed say PdfCraft. */
-private fun madeBy(producer: String): String = if (producer.trim().equals("PdfCraft", ignoreCase = true)) "Artefact" else producer
+private fun madeBy(producer: String): String = if (producer.trim().equals("PdfCraft", ignoreCase = true)) "kyube." else producer
 
 /** A page size by its paper name when it is one (A4, Letter …), else in millimetres. */
 private fun pageSizeName(w: Float, h: Float): String {

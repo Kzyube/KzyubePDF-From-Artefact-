@@ -207,12 +207,12 @@ class DocumentFiles(private val context: Context) {
         return uri
     }
 
-    /** Save an image into Pictures/ClearPDF (exported pages). */
+    /** Save an image into Pictures/kyube (exported pages). */
     fun saveToPictures(file: File, name: String, mime: String): Uri {
         val values = android.content.ContentValues().apply {
             put(android.provider.MediaStore.MediaColumns.DISPLAY_NAME, name)
             put(android.provider.MediaStore.MediaColumns.MIME_TYPE, mime)
-            put(android.provider.MediaStore.MediaColumns.RELATIVE_PATH, android.os.Environment.DIRECTORY_PICTURES + "/Artefact")
+            put(android.provider.MediaStore.MediaColumns.RELATIVE_PATH, android.os.Environment.DIRECTORY_PICTURES + "/kyube")
         }
         val uri = resolver.insert(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values) ?: error(context.getString(R.string.files_error_save_image))
         resolver.openOutputStream(uri).use { out ->

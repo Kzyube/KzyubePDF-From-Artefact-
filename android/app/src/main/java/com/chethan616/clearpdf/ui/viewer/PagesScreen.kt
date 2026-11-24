@@ -117,7 +117,7 @@ fun PagesScreen(vm: AppViewModel, doc: OpenDocument, onClose: () -> Unit) {
     LaunchedEffect(organizing) { if (organizing && selected.isEmpty()) selected[doc.viewer.currentPage] = true }
     val picked = selected.filterValues { it }.keys.sorted()
     val canDrag = doc.info.allowsAssembly && doc.pageCount > 1
-    // Artefact's own pages: the app's wallpaper, a glass Back, frosted page cards and a glass bar
+    // the app's own pages: the app's wallpaper, a glass Back, frosted page cards and a glass bar
     com.chethan616.clearpdf.ui.glass.AuroraScreen {
     Column(Modifier.fillMaxSize().safeTopPadding().navigationBarsPadding()) {
         Row(

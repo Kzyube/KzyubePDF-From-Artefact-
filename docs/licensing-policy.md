@@ -1,6 +1,6 @@
 # Licensing and attribution policy
 
-Artefact is distributed under the MIT License or Apache License, Version 2.0, at the recipient's
+kyube. is distributed under the MIT License or Apache License, Version 2.0, at the recipient's
 option. Third-party code, data, fonts, models, and media retain their own licenses and required
 notices; the project license does not relicense them.
 

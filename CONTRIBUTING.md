@@ -1,10 +1,10 @@
-# Contributing to Artefact
+# Contributing to kyube.
 
 Thanks for helping! Bug reports, ideas and focused pull requests are all welcome.
 
 ## Before you start
 
-- Look through [issues](https://github.com/Chethan616/ClearPDF/issues) and [Discussions](https://github.com/Chethan616/ClearPDF/discussions) first; for anything big, open an issue or a discussion so we can agree on the approach.
+- Look through [issues](https://github.com/Kzyube/KzyubePDF-From-Artefact-/issues) and [Discussions](https://github.com/Kzyube/KzyubePDF-From-Artefact-/discussions) first; for anything big, open an issue or a discussion so we can agree on the approach.
 - Keep a pull request to one change, with a clear description and screenshots or a short video for anything visible.
 
 ## Building

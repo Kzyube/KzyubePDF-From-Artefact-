@@ -1,7 +1,7 @@
 package com.chethan616.clearpdf.engine
 
 /**
- * The kinds of file Artefact opens: PDFs, word-processor documents read by the Word engine
+ * The kinds of file kyube. opens: PDFs, word-processor documents read by the Word engine
  * (.docx, .doc, .odt, .rtf), presentations read by the slides engine (.pptx) and workbooks read
  * by the sheets engine (.xlsx, .xlsb, .ods, .csv). The engine tells them apart by their bytes; these lists are for the
  * system's pickers, file lists and names, which go by type and extension.
@@ -26,7 +26,7 @@ object DocumentTypes {
         "application/vnd.openxmlformats-officedocument.presentationml.slideshow",
         "application/vnd.openxmlformats-officedocument.presentationml.template",
         "application/vnd.ms-powerpoint.presentation.macroEnabled.12",
-        // PowerPoint 97-2003: its slides' text (Artefact's own reader)
+        // PowerPoint 97-2003: its slides' text (the app's own reader)
         "application/vnd.ms-powerpoint",
     )
 
@@ -49,7 +49,7 @@ object DocumentTypes {
     /** Pictures: they open in the photo editor. */
     val IMAGES = arrayOf("image/jpeg", "image/png")
 
-    /** Mind maps saved as OPML outlines (by Artefact or a desktop outliner): they open as a map. */
+    /** Mind maps saved as OPML outlines (by kyube. or a desktop outliner): they open as a map. */
     val MIND_MAPS = arrayOf("text/x-opml", "application/x-opml")
 
     /**

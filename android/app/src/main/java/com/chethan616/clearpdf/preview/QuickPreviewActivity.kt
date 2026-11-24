@@ -18,7 +18,7 @@ import androidx.compose.runtime.setValue
 import androidx.core.content.IntentCompat
 import androidx.lifecycle.lifecycleScope
 import com.chethan616.clearpdf.MainActivity
-import com.chethan616.clearpdf.ArtefactApplication
+import com.chethan616.clearpdf.KyubeApplication
 import com.chethan616.clearpdf.R
 import com.chethan616.clearpdf.core.DocumentInfo
 import com.chethan616.clearpdf.core.MobileException
@@ -38,17 +38,17 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 /**
- * Quick Preview: a document another app hands to Artefact ("Open with", a chat's attachment)
+ * Quick Preview: a document another app hands to kyube. ("Open with", a chat's attachment)
  * opens in a floating card over that app instead of the full viewer.
  *
- * The window is translucent (Theme.Artefact.Preview) and joins the caller's task, so the app that
+ * The window is translucent (Theme.Kyube.Preview) and joins the caller's task, so the app that
  * opened the file stays drawn behind it, exactly where it was; Android dims and, where the phone
  * allows cross-window blur (Android 12+), softly blurs it. The card itself is compact: it never
  * covers the whole screen. Open hands the file to the full viewer at once; closing just finishes, which
  * reveals the caller again. Nothing here draws over other apps: no overlay permission, no PiP.
  */
 class QuickPreviewActivity : ComponentActivity() {
-    private val app get() = application as ArtefactApplication
+    private val app get() = application as KyubeApplication
     private val files by lazy { DocumentFiles(this) }
 
     /** What the card shows: loading, a password to ask for, the document, or what went wrong. */

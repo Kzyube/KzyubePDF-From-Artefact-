@@ -630,9 +630,9 @@ fun TodayScreen(vm: AppViewModel) {
             DeskHeaderRow(
                 leading = {
                     androidx.compose.foundation.Image(
-                        androidx.compose.ui.res.painterResource(R.drawable.artefact_mark), stringResource(R.string.app_name),
+                        androidx.compose.ui.res.painterResource(R.drawable.kyube_wordmark), stringResource(R.string.app_name),
                         colorFilter = androidx.compose.ui.graphics.ColorFilter.tint(clear.hero),
-                        modifier = Modifier.height(50.dp).width(56.dp).pressable({ vm.closeDeskPage() }, pressedScale = 0.94f),
+                        modifier = Modifier.height(50.dp).width(134.dp).pressable({ vm.closeDeskPage() }, pressedScale = 0.94f),
                     )
                 },
                 trailing = {

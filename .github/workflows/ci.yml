@@ -100,7 +100,7 @@ jobs:
         working-directory: android
         run: gradle assembleDebug testDebugUnitTest -Partefact.abis=arm64-v8a --no-daemon --no-configuration-cache
 
-      # Artefact is offline: the built app must ask for no network access, nor for the storage and
+      # kyube. is offline: the built app must ask for no network access, nor for the storage and
       # phone-state permissions a library's manifest can drag in unasked
       - name: The app stays offline
         run: |

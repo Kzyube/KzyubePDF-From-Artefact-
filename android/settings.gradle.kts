@@ -21,6 +21,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Artefact"
+rootProject.name = "kyube"
 include(":app")
 include(":backdrop")

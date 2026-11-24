@@ -1,6 +1,6 @@
 # Quick Preview
 
-"Open with Artefact" from WhatsApp, Gmail, Telegram or a file manager shows the PDF in a compact
+"Open with kyube." from WhatsApp, Gmail, Telegram or a file manager shows the PDF in a compact
 floating card over that app, in the spirit of Apple's Quick Look. Close it and the other app is
 exactly where it was; Open (or pull the card up) hands the file to the full viewer.
 
@@ -10,7 +10,7 @@ exactly where it was; Open (or pull the card up) hands the file to the full view
 |---|---|
 | Activity, intent handling, file copy, Expand | `android/app/src/main/java/com/chethan616/clearpdf/preview/QuickPreviewActivity.kt` |
 | The card, gestures, animations | `android/app/src/main/java/com/chethan616/clearpdf/preview/QuickPreview.kt` |
-| Window theme | `Theme.Artefact.Preview` in `res/values/themes.xml` (and `values-night`) |
+| Window theme | `Theme.Kyube.Preview` in `res/values/themes.xml` (and `values-night`) |
 | Intent filter | `.preview.QuickPreviewActivity` in `AndroidManifest.xml` |
 
 **A translucent activity, not an overlay.** The preview is an ordinary activity whose window is
@@ -18,7 +18,7 @@ translucent (`windowIsTranslucent`, transparent background, no system dim, no wi
 Android keeps drawing the activity below a translucent one, so the caller stays visible. The
 activity runs with `launchMode="standard"` and `taskAffinity=""`: launched normally it joins the
 caller's task (WhatsApp's), and if the caller asks for a new task it gets a fresh one instead of
-Artefact's main task. Either way Back or Close just finishes it and the caller is on top again.
+the app's main task. Either way Back or Close just finishes it and the caller is on top again.
 
 **Compact on purpose.** The card takes 84 % of the height, inset 10 dp from the edges and the
 navigation bar, with 34 dp corners. Above it the caller shows through a 32 % (light) or 50 %
@@ -27,7 +27,7 @@ navigation bar, with 34 dp corners. Above it the caller shows through a 32 % (li
 battery saver, which only removes the blur). Tapping the dim closes the preview.
 
 **Reuses the viewer's engine and renderer.** The card opens the file with the same Rust engine
-(`ArtefactApplication.engine`) and draws pages with the viewer's `PageCanvas` and `PageImages`:
+(`KyubeApplication.engine`) and draws pages with the viewer's `PageCanvas` and `PageImages`:
 vertical scrolling, pinch, double tap and double-tap-drag zoom all work. Nothing is duplicated.
 
 **URI permissions.** The caller grants a temporary read permission
@@ -62,7 +62,7 @@ viewer.
 ## What Android allows (and what it doesn't)
 
 - An app can't draw over another app without the overlay permission (`SYSTEM_ALERT_WINDOW`), and
-  Artefact doesn't ask for it. The translucent activity is the supported way to sit over the
+  kyube. doesn't ask for it. The translucent activity is the supported way to sit over the
   caller: Android itself keeps the caller visible underneath.
 - The window has to cover the screen to catch touches outside the card (to close it). A window
   that only covers the card (`FLAG_NOT_TOUCH_MODAL`) would let touches reach the caller, but the
@@ -71,8 +71,8 @@ viewer.
 - Glass can't refract another app's pixels (no app can read them). The card is solid; the
   liquid-glass header and bottom bar refract the PDF pages inside the card, and the caller gets
   the system's blur behind the window where supported.
-- Artefact can't change how WhatsApp shows a file inside WhatsApp. Quick Preview starts only
-  when WhatsApp (or any app) hands the file to another app and the user picks Artefact.
+- kyube. can't change how WhatsApp shows a file inside WhatsApp. Quick Preview starts only
+  when WhatsApp (or any app) hands the file to another app and the user picks kyube.
 - No Picture-in-Picture: PiP is for video-style content and can't scroll a document.
 
 ## Testing
@@ -80,14 +80,14 @@ viewer.
 From a chat app:
 
 1. Send yourself a PDF in WhatsApp (or Telegram, Gmail, Google Messages).
-2. Tap the PDF. WhatsApp shows "Open with"; choose **Artefact** (tap "Always" to skip the chooser
+2. Tap the PDF. WhatsApp shows "Open with"; choose **kyube.** (tap "Always" to skip the chooser
    next time). In some WhatsApp versions use the ⋮ menu ▸ Open with.
 3. The card rises over the chat. Scroll, zoom, use Share or More (Save to Downloads, Open with).
 4. Tap Close, press Back or tap the dim: you are back in the chat at the same message.
 5. Open it again and tap **Open** (or drag the header up): the full viewer opens the document;
    Back from it returns to the chat.
 
-From a file manager: open any PDF and choose Artefact.
+From a file manager: open any PDF and choose kyube.
 
 With adb (any PDF the media store knows):
 

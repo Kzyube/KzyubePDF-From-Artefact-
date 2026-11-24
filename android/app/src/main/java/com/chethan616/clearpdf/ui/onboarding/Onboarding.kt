@@ -307,7 +307,7 @@ private fun rememberDate(pattern: String): String = remember(pattern) { SimpleDa
 private fun Hello(sway: () -> Float, idle: State<Boolean>) {
     val c = clear
     Column(Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
-        Image(painterResource(R.drawable.artefact_logo), null, Modifier.padding(top = 4.dp).size(72.dp).flyIn(0f, Offset(0f, -40f), 0, sway))
+        Image(painterResource(R.drawable.kyube_mark), null, colorFilter = androidx.compose.ui.graphics.ColorFilter.tint(c.hero), modifier = Modifier.padding(top = 4.dp).size(72.dp).flyIn(0f, Offset(0f, -40f), 0, sway))
         Spacer(Modifier.height(8.dp))
         // the big glowing titles painted once into a texture (the glow is a 22 px blur); the layer is
         // taller than its text, so the glow under the last line isn't cut

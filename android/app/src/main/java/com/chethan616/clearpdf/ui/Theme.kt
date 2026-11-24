@@ -84,7 +84,7 @@ val pdfColors: PdfColors @Composable get() = LocalPdfColors.current
 enum class ThemeChoice { System, Light, Dark }
 
 /**
- * The viewer's and tool screens' roles in Artefact's palette: cool grouped surfaces (Apple's),
+ * The viewer's and tool screens' roles in the app's palette: cool grouped surfaces (Apple's),
  * the theme's ink, the system accents. (Inside [com.chethan616.clearpdf.ui.theme.ClearTheme], so it follows the same theme.)
  */
 private fun pdfColorsFrom(cc: com.chethan616.clearpdf.ui.theme.ClearColors): PdfColors {

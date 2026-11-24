@@ -108,7 +108,7 @@ internal object ComposeSnapshot {
                 }
             }, main)
             val dm = ctx.getSystemService(DisplayManager::class.java)
-            val vd = dm.createVirtualDisplay("artefact-widget", w, h, ctx.resources.displayMetrics.densityDpi, r.surface, 0)
+            val vd = dm.createVirtualDisplay("kyube-widget", w, h, ctx.resources.displayMetrics.densityDpi, r.surface, 0)
             display = vd
             val p = Presentation(ctx, vd.display)
             presentation = p
@@ -130,7 +130,7 @@ internal object ComposeSnapshot {
             p.window?.setLayout(w, h)
             p.show()
         } catch (t: Throwable) {
-            android.util.Log.w("ArtefactWidget", "could not draw the card", t)
+            android.util.Log.w("KyubeWidget", "could not draw the card", t)
             cleanUp()
             done(null)
             return
@@ -147,7 +147,7 @@ internal object ComposeSnapshot {
                 }
                 finished = true
                 val frame = latest
-                if (frame == null) android.util.Log.w("ArtefactWidget", "no frame after ${now - started} ms ($w x $h)")
+                if (frame == null) android.util.Log.w("KyubeWidget", "no frame after ${now - started} ms ($w x $h)")
                 latest = null
                 cleanUp()
                 val cut = crop()?.takeIf { it.width() > 0 && it.height() > 0 }

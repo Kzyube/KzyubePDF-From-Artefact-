@@ -2,13 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- No network permission, ever: Artefact works wholly on the device.
+    <!-- No network permission, ever: kyube. works wholly on the device.
 
          No storage permission: files come through the system's pickers (On this device lists the
          folders the user picks), and what the app saves goes to Downloads through the media store -->
 
     <!-- A library with no target SDK in its manifest (com.kyant.shapes) makes the build add these
-         three on its own, as it does for apps written before Android 1.6. Artefact uses none of
+         three on its own, as it does for apps written before Android 1.6. kyube. uses none of
          them, and an offline document reader has no business with the phone's state: taken out. -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" tools:node="remove" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" tools:node="remove" />
@@ -24,12 +24,12 @@
          granting it makes Android refuse IMAGE_CAPTURE. -->
     <uses-feature android:name="android.hardware.camera.any" android:required="false" />
 
-    <!-- Read aloud keeps reading with Artefact in the background (a media notification) -->
+    <!-- Read aloud keeps reading with kyube. in the background (a media notification) -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
 
     <application
-        android:name=".ArtefactApplication"
+        android:name=".KyubeApplication"
         android:allowBackup="false"
         android:enableOnBackInvokedCallback="true"
         android:icon="@mipmap/ic_launcher"
@@ -37,14 +37,14 @@
         android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Artefact">
+        android:theme="@style/Theme.Kyube">
 
         <activity
             android:name=".widget.WidgetPickActivity"
             android:exported="true"
             android:excludeFromRecents="true"
             android:taskAffinity=""
-            android:theme="@style/Theme.Artefact">
+            android:theme="@style/Theme.Kyube">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
             </intent-filter>
@@ -104,8 +104,8 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            <!-- PDFs and Word documents shared to Artefact open in the full app. (Those other apps
-                 *open* with Artefact go to Quick Preview below; its Expand comes here with an
+            <!-- PDFs and Word documents shared to kyube. open in the full app. (Those other apps
+                 *open* with kyube. go to Quick Preview below; its Expand comes here with an
                  explicit intent.) -->
             <intent-filter android:label="@string/open_with">
                 <action android:name="android.intent.action.SEND" />
@@ -141,7 +141,7 @@
         </activity>
 
         <!--
-          Quick Preview: "Open with Artefact" from a chat, a mail or a file manager shows the file in
+          Quick Preview: "Open with kyube." from a chat, a mail or a file manager shows the file in
           a floating card over that app. Translucent and in the caller's task (standard launch mode);
           with no task affinity of its own, a caller that asks for a new task gets a fresh one rather
           than the app's main task, so either way the caller stays drawn behind it and Back or Close
@@ -156,7 +156,7 @@
             android:label="@string/app_name"
             android:launchMode="standard"
             android:taskAffinity=""
-            android:theme="@style/Theme.Artefact.Preview"
+            android:theme="@style/Theme.Kyube.Preview"
             android:windowSoftInputMode="adjustResize">
             <!-- An .opml that a file manager hands over as a generic file (Android doesn't know the
                  type): matched by its name. -->
@@ -213,7 +213,7 @@
             android:exported="false"
             android:foregroundServiceType="mediaPlayback" />
 
-        <!-- Files of Artefact's handed to other apps (share, print, open in) -->
+        <!-- Files of the app's handed to other apps (share, print, open in) -->
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.files"
