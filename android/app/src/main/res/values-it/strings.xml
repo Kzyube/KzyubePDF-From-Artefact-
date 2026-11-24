@@ -1620,4 +1620,6 @@
     <string name="app_style_clean">Essenziale</string>
     <string name="app_style_glass_detail">Predefinito · Superfici traslucide</string>
     <string name="app_style_clean_detail">Superfici opache</string>
+    <string name="qr_scanner">Scanner QR</string>
+    <string name="qr_scan_prompt">Inquadra un codice QR</string>
 </resources>

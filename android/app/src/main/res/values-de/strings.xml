@@ -1629,4 +1629,6 @@
     <string name="app_style_clean">Schlicht</string>
     <string name="app_style_glass_detail">Standard · Durchscheinende Flächen</string>
     <string name="app_style_clean_detail">Deckende Flächen</string>
+    <string name="qr_scanner">QR-Scanner</string>
+    <string name="qr_scan_prompt">Richte die Kamera auf einen QR-Code</string>
 </resources>

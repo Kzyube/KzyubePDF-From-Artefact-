@@ -660,6 +660,8 @@ private fun LicencesPage(onBack: () -> Unit) {
             Credit("AndroidLiquidGlass", stringResource(R.string.licences_role_glass), "Apache-2.0 · Kyant0", "https://github.com/Kyant0/AndroidLiquidGlass"),
             Credit("AndroidLiquidGlassView", stringResource(R.string.licences_role_tracker), "MIT · Donny Yale (QmDeve)", "https://github.com/QmDeve/AndroidLiquidGlassView"),
             Credit("Jetpack Compose, AndroidX, Kotlin coroutines", stringResource(R.string.licences_role_toolkit), "Apache-2.0 · Google, JetBrains", "https://developer.android.com/jetpack"),
+            Credit("ZXing Android Embedded", stringResource(R.string.qr_scanner), "Apache-2.0 · JourneyApps", "https://github.com/journeyapps/zxing-android-embedded"),
+            Credit("ZXing Core", stringResource(R.string.qr_scanner), "Apache-2.0 · ZXing", "https://github.com/zxing/zxing"),
             Credit("UniFFI", stringResource(R.string.licences_role_bridge), "MPL-2.0 · Mozilla", "https://github.com/mozilla/uniffi-rs"),
             Credit("JNA", stringResource(R.string.licences_role_bridge), "Apache-2.0 · the JNA authors", "https://github.com/java-native-access/jna"),
         )),

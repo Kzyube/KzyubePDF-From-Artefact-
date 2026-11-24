@@ -1248,4 +1248,6 @@
     <string name="app_style_clean">Простой</string>
     <string name="app_style_glass_detail">По умолчанию · Полупрозрачные панели</string>
     <string name="app_style_clean_detail">Непрозрачные панели</string>
+    <string name="qr_scanner">QR-сканер</string>
+    <string name="qr_scan_prompt">Наведите камеру на QR-код</string>
 </resources>

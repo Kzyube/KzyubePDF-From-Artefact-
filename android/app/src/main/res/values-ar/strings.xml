@@ -1287,4 +1287,6 @@
     <string name="app_style_clean">بسيط</string>
     <string name="app_style_glass_detail">الافتراضي · أسطح شبه شفافة</string>
     <string name="app_style_clean_detail">أسطح معتمة</string>
+    <string name="qr_scanner">ماسح رموز QR</string>
+    <string name="qr_scan_prompt">وجّه الكاميرا نحو رمز QR</string>
 </resources>

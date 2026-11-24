@@ -76,6 +76,34 @@ class MainActivity : ComponentActivity() {
     private val pickAudio = registerForActivityResult(ActivityResultContracts.GetContent()) { uri -> vm.onAudioPicked(uri) }
     private val takeNotePhoto = registerForActivityResult(ActivityResultContracts.TakePicture()) { ok -> vm.onNoteCamera(ok) }
 
+    private var pendingCameraUri: Uri? = null
+    private var pendingNoteCamera = false
+    private val photoPermission = registerForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
+        val uri = pendingCameraUri
+        pendingCameraUri = null
+        if (granted && uri != null) launchSafely { (if (pendingNoteCamera) takeNotePhoto else takePhoto).launch(uri) }
+        else {
+            if (pendingNoteCamera) vm.onNoteCamera(false) else vm.onScanPhoto(false)
+            vm.tell(getString(R.string.main_error_not_allowed))
+        }
+    }
+
+    private fun requestPhoto(uri: Uri, note: Boolean) {
+        if (checkSelfPermission(android.Manifest.permission.CAMERA) == android.content.pm.PackageManager.PERMISSION_GRANTED) {
+            launchSafely { (if (note) takeNotePhoto else takePhoto).launch(uri) }
+        } else {
+            pendingCameraUri = uri
+            pendingNoteCamera = note
+            photoPermission.launch(android.Manifest.permission.CAMERA)
+        }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString("pendingCameraUri", pendingCameraUri?.toString())
+        outState.putBoolean("pendingNoteCamera", pendingNoteCamera)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         // transparent system bars with no contrast scrim: every screen paints the bands behind the
         // status bar and the navigation buttons itself, in its own colours (AppRoot)
@@ -85,6 +113,8 @@ class MainActivity : ComponentActivity() {
         )
         window.isNavigationBarContrastEnforced = false
         super.onCreate(savedInstanceState)
+        pendingCameraUri = savedInstanceState?.getString("pendingCameraUri")?.let(Uri::parse)
+        pendingNoteCamera = savedInstanceState?.getBoolean("pendingNoteCamera") == true
         com.chethan616.clearpdf.ui.utils.AppLocale.migrateLegacyLocale(this)
         if (savedInstanceState == null) openFromIntent(intent)
         collectRequests()
@@ -125,7 +155,7 @@ class MainActivity : ComponentActivity() {
         lifecycleScope.launch {
             for (f in vm.cameraShots) {
                 val uri = FileProvider.getUriForFile(this@MainActivity, "$packageName.files", f)
-                launchSafely { takePhoto.launch(uri) }
+                requestPhoto(uri, note = false)
             }
         }
         lifecycleScope.launch { for (d in vm.imagePicks) launchSafely { pickImage.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)) } }
@@ -135,7 +165,7 @@ class MainActivity : ComponentActivity() {
         lifecycleScope.launch {
             for (f in vm.noteCameraShots) {
                 val uri = FileProvider.getUriForFile(this@MainActivity, "$packageName.files", f)
-                launchSafely { takeNotePhoto.launch(uri) }
+                requestPhoto(uri, note = true)
             }
         }
         // the folder picker opens at Documents, where PDFs usually are (Download itself can't be chosen)

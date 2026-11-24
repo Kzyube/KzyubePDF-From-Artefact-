@@ -1638,4 +1638,6 @@
     <string name="app_style_clean">Sencillo</string>
     <string name="app_style_glass_detail">Predeterminado · Superficies translúcidas</string>
     <string name="app_style_clean_detail">Superficies opacas</string>
+    <string name="qr_scanner">Escáner QR</string>
+    <string name="qr_scan_prompt">Apunta la cámara a un código QR</string>
 </resources>

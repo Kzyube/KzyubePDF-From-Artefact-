@@ -3283,3 +3283,21 @@ licence_file = "android/app/src/main/assets/licences/OFL-Doto.txt"
 kind = "font"
 usage = "Android app UI typeface; source and license are also listed in the app's Licences screen"
 sha256 = "6f4fe7d37853b91df3698daa84cde2dbe1c9695d88c986e6510134910337d426"
+
+[[build_input]]
+name = "zxing-android-embedded"
+title = "ZXing Android Embedded 4.3.0"
+author = "Journey Mobile, Inc. and contributors"
+source = "https://github.com/journeyapps/zxing-android-embedded"
+licence = "Apache-2.0"
+kind = "library"
+usage = "Live camera capture for the QR Scanner"
+
+[[build_input]]
+name = "zxing-core"
+title = "ZXing Core 3.4.1"
+author = "ZXing authors"
+source = "https://github.com/zxing/zxing"
+licence = "Apache-2.0"
+kind = "library"
+usage = "On-device QR decoding"
