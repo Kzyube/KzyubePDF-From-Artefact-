@@ -1215,4 +1215,6 @@
     <string name="app_style_clean">Simples</string>
     <string name="app_style_glass_detail">Padrão · Superfícies translúcidas</string>
     <string name="app_style_clean_detail">Superfícies opacas</string>
+    <string name="qr_scanner">Leitor de QR</string>
+    <string name="qr_scan_prompt">Aponte a câmera para um código QR</string>
 </resources>

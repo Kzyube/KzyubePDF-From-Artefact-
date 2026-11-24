@@ -1688,4 +1688,6 @@
     <string name="app_style_clean">Clean</string>
     <string name="app_style_glass_detail">Default · Translucent surfaces</string>
     <string name="app_style_clean_detail">Solid surfaces</string>
+    <string name="qr_scanner">QR Scanner</string>
+    <string name="qr_scan_prompt">Point the camera at a QR code</string>
 </resources>

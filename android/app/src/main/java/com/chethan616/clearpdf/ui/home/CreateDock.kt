@@ -1,5 +1,13 @@
 package com.chethan616.clearpdf.ui.home
 
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.text.selection.SelectionContainer
+import androidx.compose.runtime.saveable.rememberSaveable
+import com.chethan616.clearpdf.ui.glass.GlassDialog
+import com.journeyapps.barcodescanner.ScanContract
+import com.journeyapps.barcodescanner.ScanOptions
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.RepeatMode
@@ -236,7 +244,26 @@ fun BoxScope.CreateDock(
         )
     }
     // composed while the scrim is still fading, so the items can fold back into the +
-    if (fanShown) Fan(vm, desk, desk.fanOpen, onBrowse)
+    var qrResult by rememberSaveable { mutableStateOf<String?>(null) }
+    val scanner = rememberLauncherForActivityResult(ScanContract()) { result -> qrResult = result.contents }
+    val prompt = stringResource(R.string.qr_scan_prompt)
+    if (fanShown) Fan(vm, desk, desk.fanOpen, onBrowse) {
+        scanner.launch(ScanOptions().setDesiredBarcodeFormats(ScanOptions.QR_CODE)
+            .setPrompt(prompt).setBeepEnabled(false).setOrientationLocked(false))
+    }
+    qrResult?.let { result ->
+        val clipboard = androidx.compose.ui.platform.LocalClipboardManager.current
+        GlassDialog(
+            onDismiss = { qrResult = null }, title = stringResource(R.string.qr_scanner),
+            confirm = stringResource(R.string.viewer_copy_text),
+            onConfirm = { clipboard.setText(androidx.compose.ui.text.AnnotatedString(result)); qrResult = null },
+            dismiss = stringResource(R.string.common_done),
+        ) {
+            SelectionContainer {
+                Text(result, color = c.ink, style = ClearType.Body)
+            }
+        }
+    }
 
     // the recorder stays drawn while the capsule shrinks back
     val rec = desk.recorder
@@ -367,7 +394,7 @@ private class FanItem(val icon: ImageVector, val label: String, val accent: Colo
 
 /** The fan: the ways to make something, rising from the + one after another. */
 @Composable
-private fun BoxScope.Fan(vm: AppViewModel, desk: DeskState, open: Boolean, onBrowse: () -> Unit) {
+private fun BoxScope.Fan(vm: AppViewModel, desk: DeskState, open: Boolean, onBrowse: () -> Unit, onScanQr: () -> Unit) {
     val c = clear
     // glass bodies: the Back button's glass, with enough body that the label reads over the desk
     val body = c.frost.copy(alpha = c.frost.alpha * if (c.dark) 0.40f else 0.32f)
@@ -379,6 +406,7 @@ private fun BoxScope.Fan(vm: AppViewModel, desk: DeskState, open: Boolean, onBro
         FanItem(LucideIcons.SquarePen, stringResource(R.string.create_note), Candy.Sky, go { vm.newNote(NoteKind.Text) }),
         FanItem(LucideIcons.ListChecks, stringResource(R.string.create_list), Candy.Mint, go { vm.newNote(NoteKind.List) }),
         FanItem(LucideIcons.Network, stringResource(R.string.create_mindmap), Candy.Grape, go { vm.newNote(NoteKind.Map) }),
+        FanItem(LucideIcons.QrCodeScanner, stringResource(R.string.qr_scanner), Candy.Sky, go(onScanQr)),
         FanItem(ToolCatalog.Scan.icon, stringResource(ToolCatalog.Scan.label), Candy.Tomato, go { ToolCatalog.Scan.go(vm) }),
         FanItem(LucideIcons.FolderOpen, stringResource(R.string.home_open_file), Candy.Grape, go(onBrowse)),
         FanItem(LucideIcons.Images, stringResource(R.string.desk_photos_to_pdf), Candy.Tangerine, go { vm.pickPhotosToPdf() }),
@@ -387,7 +415,7 @@ private fun BoxScope.Fan(vm: AppViewModel, desk: DeskState, open: Boolean, onBro
     val haptics = LocalHaptics.current
     LaunchedEffect(open) { if (open) { delay(60); haptics?.cascade(items.size) } }
     Column(
-        Modifier.align(Alignment.BottomCenter).navigationBarsPadding().padding(bottom = 96.dp),
+        Modifier.align(Alignment.BottomCenter).navigationBarsPadding().padding(bottom = 96.dp).verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.spacedBy(10.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {

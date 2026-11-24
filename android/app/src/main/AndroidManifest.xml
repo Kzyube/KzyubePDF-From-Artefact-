@@ -20,8 +20,7 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-feature android:name="android.hardware.microphone" android:required="false" />
 
-    <!-- Scan: the phone's camera app takes the pages. No CAMERA permission: declaring it without
-         granting it makes Android refuse IMAGE_CAPTURE. -->
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-feature android:name="android.hardware.camera.any" android:required="false" />
 
     <!-- Read aloud keeps reading with kyube. in the background (a media notification) -->
@@ -38,6 +37,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Kyube">
+
+        <activity
+            android:name="com.journeyapps.barcodescanner.CaptureActivity"
+            android:exported="false"
+            android:screenOrientation="fullSensor"
+            tools:replace="android:screenOrientation" />
 
         <activity
             android:name=".widget.WidgetPickActivity"

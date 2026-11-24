@@ -130,6 +130,7 @@ object LucideIcons {
     val RotateCcw: ImageVector get() = Icons.Rounded.RotateLeft
     val RotateCw: ImageVector get() = Icons.Rounded.RotateRight
     val Save: ImageVector get() = Icons.Rounded.Save
+    val QrCodeScanner: ImageVector get() = Icons.Rounded.QrCodeScanner
     val ScanText: ImageVector get() = Icons.Rounded.DocumentScanner
     val ScrollText: ImageVector get() = Icons.AutoMirrored.Rounded.Article
     val Search: ImageVector get() = Icons.Rounded.Search
