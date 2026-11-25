@@ -1,10 +1,13 @@
 package com.chethan616.clearpdf.ui.home
 
+import android.content.Intent
+import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.runtime.saveable.rememberSaveable
+import com.chethan616.clearpdf.ui.glass.GlassPill
 import com.chethan616.clearpdf.ui.glass.GlassDialog
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanOptions
@@ -261,6 +264,14 @@ fun BoxScope.CreateDock(
         ) {
             SelectionContainer {
                 Text(result, color = c.ink, style = ClearType.Body)
+            }
+            remember(result) { scannedWebLink(result) }?.let { address ->
+                Spacer(Modifier.height(12.dp))
+                GlassPill(onClick = {
+                    vm.intents.trySend(Intent(Intent.ACTION_VIEW, Uri.parse(address).normalizeScheme()))
+                }) {
+                    Text(stringResource(R.string.sheet_open_link), color = c.ink, style = ClearType.BodyStrong)
+                }
             }
         }
     }
